@@ -9,6 +9,12 @@ Branches:
 ---
 
 # Guidelines til git:
+Til ios:
+---
+ALDRIG brug version control i xcode til checkout eller at opdatere production branch. Dette gøres igennem terminal.
+
+Fetch, pull, commit og push må gerne bruges gennem xcode
+
 Pull fra branch
 ---
 Først tjekker du om der er ændringer i vores repository:
