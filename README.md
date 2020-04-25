@@ -47,7 +47,7 @@ For ios - installer pods efter:
 
 Push fra staging til production branch
 ---
-Sørg for at staging branch er up-to-date og testet på de respektive udvikleres computere, før der pushes til production branch!
+Sørg for at staging branch er up-to-date og testet på de respektive udvikleres computere før der pushes til production branch!
 
 `git push origin <staging_branch>:<production_branch>`
 
