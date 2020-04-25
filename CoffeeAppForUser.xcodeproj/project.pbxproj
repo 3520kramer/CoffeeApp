@@ -29,7 +29,6 @@
 		4C38A23A2445EE5D004E50CB /* ViewControllerMenuForShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C38A2392445EE5D004E50CB /* ViewControllerMenuForShop.swift */; };
 		4C38A23C2445EF35004E50CB /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C38A23B2445EF35004E50CB /* Product.swift */; };
 		4C38A23E2445EF9B004E50CB /* ProductRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C38A23D2445EF9B004E50CB /* ProductRepo.swift */; };
-		4C61BDA424545E7E0017C452 /* testfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61BDA324545E7E0017C452 /* testfile.swift */; };
 		4C7E30342445BA5E004E56CB /* ViewControllerWithMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */; };
 		E4A7FC54647BA5360DF809D3 /* Pods_CoffeeAppForUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C76BFA610EC3242392FCF3 /* Pods_CoffeeAppForUser.framework */; };
 /* End PBXBuildFile section */
@@ -60,7 +59,6 @@
 		4C38A2392445EE5D004E50CB /* ViewControllerMenuForShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerMenuForShop.swift; sourceTree = "<group>"; };
 		4C38A23B2445EF35004E50CB /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		4C38A23D2445EF9B004E50CB /* ProductRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRepo.swift; sourceTree = "<group>"; };
-		4C61BDA324545E7E0017C452 /* testfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testfile.swift; sourceTree = "<group>"; };
 		4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerWithMap.swift; sourceTree = "<group>"; };
 		735012AB88A792925AB260CC /* Pods-CoffeeAppForUser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeAppForUser.debug.xcconfig"; path = "Target Support Files/Pods-CoffeeAppForUser/Pods-CoffeeAppForUser.debug.xcconfig"; sourceTree = "<group>"; };
 		A9C76BFA610EC3242392FCF3 /* Pods_CoffeeAppForUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeAppForUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +109,6 @@
 				4C05F7BC243F241B00EAD78C /* LaunchScreen.storyboard */,
 				4C05F7BF243F241B00EAD78C /* Info.plist */,
 				4C05F7C5243F244D00EAD78C /* GoogleService-Info.plist */,
-				4C61BDA324545E7E0017C452 /* testfile.swift */,
 			);
 			path = CoffeeAppForUser;
 			sourceTree = "<group>";
@@ -314,7 +311,6 @@
 				4C2330142448542300B279D8 /* CoffeeShopAnnotation.swift in Sources */,
 				4C2330162448555800B279D8 /* AnnotationView.swift in Sources */,
 				0512392024464275008B8F99 /* Order.swift in Sources */,
-				4C61BDA424545E7E0017C452 /* testfile.swift in Sources */,
 				4C05F7B2243F241A00EAD78C /* AppDelegate.swift in Sources */,
 				4C2330122448523100B279D8 /* CustomAnnotationView.swift in Sources */,
 				4C05F7CC243F2E1F00EAD78C /* User.swift in Sources */,
