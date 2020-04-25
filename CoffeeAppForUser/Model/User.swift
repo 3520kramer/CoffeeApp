@@ -15,6 +15,7 @@ class User{
     var lastName: String
     var username: String
     var password: String
+    //var test: String
     
     
     init(id: String, firstName: String, lastName: String, username: String, password: String){
