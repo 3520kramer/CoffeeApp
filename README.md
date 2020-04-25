@@ -9,6 +9,14 @@ Branches:
 ---
 
 # Guidelines til git:
+Pull fra branch
+---
+Først tjekker du om der er ændringer i vores repository:
+git fetch
+
+Herefter kan du hente det nye ned hvis det er noget:
+git pull 
+
 Push til branch
 ---
 Først tilføjer du alle ændringer til dit commit:
