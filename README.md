@@ -13,7 +13,9 @@ Pull fra branch
 ---
 Først tjekker du om der er ændringer i vores repository:
 
-git fetch
+`git fetch`
+
+
 
 Herefter kan du hente det nye ned hvis det er noget:
 
