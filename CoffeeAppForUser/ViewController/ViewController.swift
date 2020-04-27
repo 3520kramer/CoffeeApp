@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         UserRepo.startListener { () in
             
             if let user = self.userList.first{
-                print(user.password)
+                //print(user.password)
                 
             }
             //print("\(self.userList.first.id)")

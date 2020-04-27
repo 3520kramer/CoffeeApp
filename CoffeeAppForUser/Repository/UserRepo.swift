@@ -32,11 +32,9 @@ class UserRepo{
                     
                     let firstName = map["firstname"] as! String
                     let lastName = map["lastname"] as! String
-                    let username = map["username"] as! String
-                    let password = map["password"] as! String
 
                     // creates an user object with the data from firestore
-                    let userFromDb = User(id: user.documentID, firstName: firstName, lastName: lastName, username: username, password: password)
+                    let userFromDb = User(id: user.documentID, firstName: firstName, lastName: lastName)
                     
                     // appends the user object to the list
                     self.userList.append(userFromDb)
@@ -56,8 +54,6 @@ class UserRepo{
         
         map["firstname"] = user.firstName
         map["lastname"] = user.lastName
-        map["username"] = user.username
-        map["password"] = user.password
         
         // updates the document in the database with the user objects information
         docRef.setData(map)
@@ -73,8 +69,6 @@ class UserRepo{
 
         map["firstname"] = user.firstName
         map["lastname"] = user.lastName
-        map["username"] = user.username
-        map["password"] = user.password
         
         // updates the document in the database with the user objects information
         docRef.setData(map)
