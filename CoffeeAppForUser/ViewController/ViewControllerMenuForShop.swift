@@ -13,6 +13,7 @@ class ViewControllerMenuForShop: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     
     var collectionID: String?
+    var selectedProduct: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,15 @@ class ViewControllerMenuForShop: UIViewController{
             ProductRepo.startListener(id: id){ () -> () in
                 self.tableView.reloadData()
                 
+            }
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("Yo")
+        if let viewControllerInfo = segue.destination as? ViewControllerInfo{
+            if let selectedProduct = selectedProduct{
+                
+                viewControllerInfo.product = selectedProduct
             }
         }
     }
@@ -45,4 +55,14 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedProduct = indexPath.row
+    
+        
+        performSegue(withIdentifier: "ShowInfo", sender: nil)
+    }
+    
+
 }
+       
+

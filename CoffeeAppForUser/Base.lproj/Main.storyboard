@@ -80,6 +80,7 @@
                     <navigationItem key="navigationItem" id="Rhr-KO-il8"/>
                     <connections>
                         <outlet property="tableView" destination="Ohz-d4-4cT" id="UPy-RS-wne"/>
+                        <segue destination="lrf-X8-6ta" kind="show" identifier="ShowInfo" id="GS6-h5-9vN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61x-xr-Siv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -181,6 +182,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1d-05-gkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1673.913043478261" y="134.59821428571428"/>
+        </scene>
+        <!--View Controller item info-->
+        <scene sceneID="n9R-Ga-lgd">
+            <objects>
+                <viewController title="View Controller item info" id="lrf-X8-6ta" customClass="ViewControllerInfo" customModule="CoffeeAppForUser" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9JW-LS-NbA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Txj-aY-Gzc">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ZL-JD-BRb">
+                                <rect key="frame" x="252" y="536" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="1Ei-AX-pUD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="l4W-JS-e25"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BUw-sc-ek1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4125" y="19"/>
         </scene>
     </scenes>
     <resources>

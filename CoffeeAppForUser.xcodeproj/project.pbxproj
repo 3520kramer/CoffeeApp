@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0512392024464275008B8F99 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0512391F24464275008B8F99 /* Order.swift */; };
+		05EBBACE245849AD004D0772 /* ViewControllerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EBBACD245849AD004D0772 /* ViewControllerInfo.swift */; };
+		05EBBAD224586296004D0772 /* OrderRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EBBAD124586296004D0772 /* OrderRepo.swift */; };
 		4C05F7B2243F241A00EAD78C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05F7B1243F241A00EAD78C /* AppDelegate.swift */; };
 		4C05F7B4243F241A00EAD78C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05F7B3243F241A00EAD78C /* SceneDelegate.swift */; };
 		4C05F7B6243F241A00EAD78C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05F7B5243F241A00EAD78C /* ViewController.swift */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		0512391F24464275008B8F99 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		05EBBACD245849AD004D0772 /* ViewControllerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerInfo.swift; sourceTree = "<group>"; };
+		05EBBAD124586296004D0772 /* OrderRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRepo.swift; sourceTree = "<group>"; };
 		243496708E4DBE7D76B74CF4 /* Pods-CoffeeAppForUser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeAppForUser.release.xcconfig"; path = "Target Support Files/Pods-CoffeeAppForUser/Pods-CoffeeAppForUser.release.xcconfig"; sourceTree = "<group>"; };
 		4C05F7AE243F241A00EAD78C /* CoffeeAppForUser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeAppForUser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C05F7B1243F241A00EAD78C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				4C05F7C9243F28C700EAD78C /* UserRepo.swift */,
 				4C38A2372445BF85004E50CB /* CoffeeShopRepo.swift */,
 				4C38A23D2445EF9B004E50CB /* ProductRepo.swift */,
+				05EBBAD124586296004D0772 /* OrderRepo.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 				4C38A2392445EE5D004E50CB /* ViewControllerMenuForShop.swift */,
 				4C2330222451987D00B279D8 /* ViewControllerProfile.swift */,
 				4C23301D2451862300B279D8 /* ViewControllerSignIn.swift */,
+				05EBBACD245849AD004D0772 /* ViewControllerInfo.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -299,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05EBBAD224586296004D0772 /* OrderRepo.swift in Sources */,
 				4C38A23E2445EF9B004E50CB /* ProductRepo.swift in Sources */,
 				4C05F7CA243F28C700EAD78C /* UserRepo.swift in Sources */,
 				4C7E30342445BA5E004E56CB /* ViewControllerWithMap.swift in Sources */,
@@ -312,6 +319,7 @@
 				4C2330162448555800B279D8 /* AnnotationView.swift in Sources */,
 				0512392024464275008B8F99 /* Order.swift in Sources */,
 				4C05F7B2243F241A00EAD78C /* AppDelegate.swift in Sources */,
+				05EBBACE245849AD004D0772 /* ViewControllerInfo.swift in Sources */,
 				4C2330122448523100B279D8 /* CustomAnnotationView.swift in Sources */,
 				4C05F7CC243F2E1F00EAD78C /* User.swift in Sources */,
 				4C38A23C2445EF35004E50CB /* Product.swift in Sources */,

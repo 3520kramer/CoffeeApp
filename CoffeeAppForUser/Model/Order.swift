@@ -11,17 +11,17 @@ import Foundation
 class Order{
     
     var orderId: String?
-    var productQty: Int?
-    var date: datum?
-    var time: timeb?
-    var totalAmount: Double?
+    //var productQty: Int?
+    var date: String?
+    var time: String?
+    var total: Double?
     
     init() {
         
     }
     
     
-    
+    /*
     var items = [Product]()
     
     //append
@@ -57,12 +57,12 @@ class Order{
         }
         return total
         
-        
+      
         
     }
     
     
-    
+  */
     
     
     
