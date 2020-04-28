@@ -13,12 +13,24 @@ const db = admin.firestore();
 
 
 //test route for database 
-router.get("/testGet", (req, res) => {    
+router.get("/orderslist", (req, res) => {    
   // For loop goes through the collection list and displays them all. 
   db.collection('orders').get().then((snapshot) => {
     let getCoffee = snapshot.docs.map((doc) => {
       return doc.data();
     });
+   
+    // working on route for subcollection orders/products  
+    /*
+    db.collection("orders/" + getDoc.id + "/products").get().then((snapshot) => {
+
+      let getProductDoc = snapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      console.log(getProductDoc);
+    });
+    */
+   
     console.log(getCoffee)
     return res.json(getCoffee);
 

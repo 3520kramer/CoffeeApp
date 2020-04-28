@@ -5,7 +5,7 @@ console.log("frontpage.js works");
 $(document).ready( () =>{
 
     // jquery getting our json order data from firebase
-    $.get("http://localhost:8888/testGet", (data) => {    
+    $.get("http://localhost:8888/orderslist", (data) => {    
         
         // i is for the index of the array of orders
         let i = 0;    
@@ -23,13 +23,12 @@ $(document).ready( () =>{
                         <th>Order Status</th>
                     </tr>
                     <tr>
-                        <td>${data[i].customer}</td>
+                        <td>${data[i].customer_name}</td>
                         <td>${data[i].date}</td>
                         <td>${data[i].total} Kr.</td>
                         <td>${data[i].order}</td>
                         <td>
-                            <input type="button" onclick="${$("#frontpage_ready_ordertable").append(data[i])}" value="Ready"/>
-                            <input type="button" onclick="insert(this)" value="Cancel"/>
+
                         </td>
                     </tr>
                 </table>`
@@ -45,4 +44,7 @@ $(document).ready( () =>{
 
 
 });
-
+/*
+<input type="button" onclick="${$("#frontpage_ready_ordertable").append(data[i])}" value="Ready"/>
+<input type="button" onclick="insert(this)" value="Cancel"/>
+*/
