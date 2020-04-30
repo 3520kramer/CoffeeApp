@@ -14,7 +14,8 @@ class Order{
     //var productQty: Int?
     var date: String?
     var time: String?
-    var total: Double?
+    var total: String?
+    
     
     init() {
         

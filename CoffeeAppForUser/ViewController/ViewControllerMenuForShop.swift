@@ -13,7 +13,7 @@ class ViewControllerMenuForShop: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     
     var collectionID: String?
-    var selectedProduct: Int?
+    var selectedProduct: Product?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +30,14 @@ class ViewControllerMenuForShop: UIViewController{
             }
         }
     }
+    
+    //pass object to next viewcontroller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Yo")
         if let viewControllerInfo = segue.destination as? ViewControllerInfo{
             if let selectedProduct = selectedProduct{
-                
                 viewControllerInfo.product = selectedProduct
+        
             }
         }
     }
@@ -56,10 +58,9 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedProduct = indexPath.row
-    
-        
+        selectedProduct = ProductRepo.productList[indexPath.row]
         performSegue(withIdentifier: "ShowInfo", sender: nil)
+        print(selectedProduct?.name)
     }
     
 
