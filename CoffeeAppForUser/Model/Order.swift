@@ -11,14 +11,12 @@ import Foundation
 class Order{
     
     var id: String? // we will not use this until we need to pull orders from the db
-    var date: String
-    var time: String
+    var date: String?
+    var time: String?
     var total: Double
     var products = [Product]()
     
     init(date: String, time: String) {
-        self.date = date
-        self.time = time
         self.total = 00.00
     }
     
