@@ -26,6 +26,7 @@ $(document).ready( () =>{
           
           return $clone;
         });
+
         //appends to our frontpage html 
         $("#frontpage_new_ordertable tbody").append(rows);
     });
