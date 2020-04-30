@@ -8,7 +8,7 @@ body {
 
 /* frontpage order table */
 
-#frontpage_new_ordertable {
+#frontpage_new_ordertable, #itempage_new_table {
     margin-top: 2%;
     border-collapse: collapse;
     width: 60%;
