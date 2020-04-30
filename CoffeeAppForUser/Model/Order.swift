@@ -14,9 +14,11 @@ class Order{
     var date: String?
     var time: String?
     var total: Double
+    var customerEmail: String
     var products = [Product]()
     
-    init() {
+    init(customerEmail: String) {
+        self.customerEmail = customerEmail
         self.total = 00.00
     }
     
