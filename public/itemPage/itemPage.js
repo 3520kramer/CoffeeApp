@@ -1,19 +1,23 @@
 $(document).ready( () =>{
 
-  $.get("http://localhost:8888/products", (data) => {    
-      let i = 0;    
-      $.each(data, function () {
-           
-  
-      $(`<div id = item-box>
-          Product name:   ${data[i].name}<br>
-          Price:       ${data[i].price}<br><br>`
-      ).appendTo("#item-box");        
-      i++;
-
-      
+     // jquery getting our json order data from firebase
+     $.get("http://localhost:8888/products", (data) => {    
+       
+      let rows = data.map(item => {
+        let $clone = $('#itempage_new_table tfoot tr').clone();
+    
+        let productsName = item.products.map(prod => `${prod.name}:`);
+        let productsPrice = item.products.map(prod => `${prod.price} Kr.`);
+        $clone.find('.name').html(productsName.join('<br />'));
+        $clone.find('.price').html(productsPrice.join('<br />'));
+        return $clone;
       });
+    
+      $("#itempage_new_table tbody").append(rows);
   });
+
+
+
   var product = firebase.database().ref("coffeshop/get.Doc.");
 
   // Save a new product to the database, using the input in the form
