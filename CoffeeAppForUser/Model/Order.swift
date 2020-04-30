@@ -10,27 +10,29 @@ import Foundation
 
 class Order{
     
-    var orderId: String?
-    //var productQty: Int?
-    var date: String?
-    var time: String?
-    var total: String?
+    var id: String? // we will not use this until we need to pull orders from the db
+    var date: String
+    var time: String
+    var total: Double
+    var products = [Product]()
     
+    init(date: String, time: String) {
+        self.date = date
+        self.time = time
+        self.total = 00.00
+    }
     
-    init() {
+    // function which adds the product to the order and sets the new total
+    func addProductToOrder(product: Product) {
+        // appends the product to the list of products
+        products.append(product)
         
+        // adds the price of the products to the total of the order
+        total += product.price
     }
     
     
     /*
-    var items = [Product]()
-    
-    //append
-    func add(product item: Product) {
-        self.items.append(item)
-        print(item.name)
-    }
-    
     //remove
     func delete(product item: Product){
         for (i, itemx) in items.enumerated(){

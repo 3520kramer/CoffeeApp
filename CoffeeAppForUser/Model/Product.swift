@@ -10,13 +10,21 @@ import Foundation
 
 class Product{
   
-    var id: String
+    var id: String?
     var name: String
     var price: Double
     
+    // initializer for testing
+    init(name: String, price: Double){
+        self.name = name
+        self.price = price
+    }
+    
+    // initializer when fetching from database
     init(id: String, name: String, price: Double){
         self.id = id
         self.name = name
         self.price = price
     }
+
 }
