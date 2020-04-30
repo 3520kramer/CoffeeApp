@@ -32,7 +32,6 @@ class ViewControllerInfo: UIViewController{
             newOrder = Order(customerEmail: email)
         }
     
-        
     }
     
     // adds the order to firebase and show a confirmation alert
