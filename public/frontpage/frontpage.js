@@ -6,42 +6,21 @@ $(document).ready( () =>{
 
     // jquery getting our json order data from firebase
     $.get("http://localhost:8888/orderslist", (data) => {    
-        
-        // i is for the index of the array of orders
-        let i = 0;    
-        //for each loop through our array list
-        $.each(data, function () {
-            //console.log(data)
-            //console.log(i);
-            // is how we arrange the data and show it to the frontpage
-            $(`<table id = order_table_layout>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                        <th>Order</th>
-                        <th>Order Status</th>
-                    </tr>
-                    <tr>
-                        <td>${data[i].customer_name}</td>
-                        <td>${data[i].date}</td>
-                        <td>${data[i].total} Kr.</td>
-                        <td>${data[i].products}</td>
-                        <td>
-
-                        </td>
-                    </tr>
-                </table>`
-            
-            ).appendTo("#frontpage_new_ordertable");        
-            // counts 1 up for each loop 
-            i++;
-            //console.log(i);
+       
+        let rows = data.map(item => {
+          let $clone = $('#frontpage_new_ordertable tfoot tr').clone();
+          $clone.find('.customer-name').text(item.customer_name);
+          $clone.find('.date').text(item.date);
+          $clone.find('.time').text(item.time);
+          $clone.find('.total').text(item.total + ' Kr.');
+      
+          let products = item.products.map(prod => `${prod.name}: ${prod.price} Kr.`);
+          $clone.find('.products').html(products.join('<br />'));
+          return $clone;
         });
+      
+        $("#frontpage_new_ordertable tbody").append(rows);
     });
-
-
-
 
 });
 /*
