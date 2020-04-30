@@ -13,15 +13,13 @@ class ViewControllerInfo: UIViewController{
     @IBOutlet weak var productDetail: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     
-    @IBAction func buyButton(_ sender: Any) {
-        
-    }
-   
-    
+  
     var product: Product?
+    var newOrder: Order?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        newOrder = Order()
         print(product?.name)
         if let product = product {
             productDetail.text = product.name
@@ -30,9 +28,20 @@ class ViewControllerInfo: UIViewController{
         
     }
     
-    //buyButton
+    @IBAction func buyButton(_ sender: Any) {
+        if let product = product{
+          newOrder?.addProductToOrder(product: product)
+        }
+        if let newOrder = newOrder {
+            OrderRepo.addOrder(order: newOrder)
+            
+            
+        }
+        
+        
+        
     
-   
-
+      }
+     
+    
 }
-

@@ -28,7 +28,6 @@ class ViewControllerWithMap: UIViewController {
                 
         CoffeeShopRepo.startListener(vc: self)
     }
-    
      // MARK: - User Location Setup With Authorization
     
     // function that checks if the location services of the device isn't turned off
