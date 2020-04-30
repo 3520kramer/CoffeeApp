@@ -8,8 +8,8 @@ body {
 
 /* frontpage order table */
 
-#order_table_layout {  
-    margin-top: 1%;
+#frontpage_new_ordertable {
+    margin-top: 2%;
     border-collapse: collapse;
     width: 60%;
     margin-left: auto;
@@ -17,14 +17,14 @@ body {
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
 }
 
-#frontpage_new_ordertable {
-    margin-top: 2%;
-}
+tfoot { 
+    display: none;
+  }
 
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
-    padding: 8px;
+    padding: 10px;
 }
   
 tr:nth-child(even) {

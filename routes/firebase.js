@@ -59,8 +59,8 @@ router.get("/orderslist", (req, res) => {
   
           // checks if the list is filled with everything from the database
           if(orders.length == number_of_orders){
-            console.log('efter push', orders)
-            console.log('efter push', orders[1].products[0].name)
+            //console.log('efter push', orders)
+            //console.log('efter push', orders[1].products[0].name)
             return res.json(orders)
           }
   
@@ -68,9 +68,9 @@ router.get("/orderslist", (req, res) => {
         //console.log('efter push', orders[0].products[0].name)
       });
   
-      console.log(orders)
-      console.log(number_of_orders)
-      console.log('This Works')
+      // console.log(orders)
+      // console.log(number_of_orders)
+      // console.log('This Works')
     
   });
     
