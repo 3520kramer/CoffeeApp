@@ -16,7 +16,7 @@ class Order{
     var total: Double
     var products = [Product]()
     
-    init(date: String, time: String) {
+    init() {
         self.total = 00.00
     }
     
@@ -28,6 +28,23 @@ class Order{
         // adds the price of the products to the total of the order
         total += product.price
     }
+    
+    func setDateAndTime(){
+        // Creates a Date object to find the date and time
+        let currDate = Date.init()
+        
+        // Creates a dateformatter and changes format
+        let dateTimeFormatter = DateFormatter()
+        dateTimeFormatter.dateFormat = "HH:mm:ss"
+        
+        time = dateTimeFormatter.string(from: currDate)
+        
+        dateTimeFormatter.dateFormat = "dd/MM-yyyy"
+        
+        date = dateTimeFormatter.string(from: currDate)
+        
+    }
+    
     
     
     /*

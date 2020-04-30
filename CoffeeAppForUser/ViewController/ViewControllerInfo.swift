@@ -14,6 +14,7 @@ class ViewControllerInfo: UIViewController{
     @IBOutlet weak var productPrice: UILabel!
     
     @IBAction func buyButton(_ sender: Any) {
+        
     }
    
     

@@ -24,6 +24,8 @@ class OrderRepo{
         // creates a map which holds the data we wan't to push to the document in firestore
         var orderMap = [String:Any]()
         
+        order.setDateAndTime()
+        
         // fills the map
         orderMap["date"] = order.date
         orderMap["time"] = order.time

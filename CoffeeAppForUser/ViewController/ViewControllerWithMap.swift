@@ -27,9 +27,6 @@ class ViewControllerWithMap: UIViewController {
         checkLocationService()
                 
         CoffeeShopRepo.startListener(vc: self)
-        var product = Product(name: "Latte", price: 46.50)
-        var order = Order(date: "22-22-2222", time: "22:22:22", total: 22.22, product: product)
-        OrderRepo.addOrder(order: order)
     }
     
      // MARK: - User Location Setup With Authorization
