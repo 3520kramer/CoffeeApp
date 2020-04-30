@@ -1,48 +1,38 @@
-$(document).ready( () => {
+$(document).ready( () =>{
 
-  // dummy data over items - C0 story - 15-05-2020
-  let items = [
-    { id: "1", NAME: "Black Coffee", PRICE: 20},
-    { id: "2", NAME: "Cappuccino", PRICE: 25},
-    { id: "3", NAME: "Kaffe Latte", PRICE: 30},
-    { id: "4", NAME: "Hot Chocolate", PRICE: 38},
-    { id: "5", NAME: "Filter Kaffe", PRICE: 10},
-    { id: "6", NAME: "Water", PRICE: 1230}
-  ];
+  $.get("http://localhost:8888/products", (data) => {    
+      let i = 0;    
+      $.each(data, function () {
+           
   
-  $.each(items, function () {      
-    $(`<div id = item-box>
-      Id:          ${this.id}<br>
-      Name:        ${this.NAME}<br>
-      Price:       ${this.PRICE}<br><br>`
-    ).appendTo("#item-box");        
+      $(`<div id = item-box>
+          Product name:   ${data[i].name}<br>
+          Price:       ${data[i].price}<br><br>`
+      ).appendTo("#item-box");        
+      i++;
+
+      
+      });
   });
+  var product = firebase.database().ref("coffeshop/get.Doc.");
 
-  //USER STORY C1 - 15-05-2020
-  $("#addItem-button").click( () => {
-    
-    // object we enter data into
-    let newItem = {
-      id : 20,
-      NAME : $("#name").val(),
-      PRICE : $("#price").val(),
-    };
-    
-    // goes trough list of items and adds to bottom of list 
-    $("#item-box").length + 1;
-    $("#item-box").last().append(
-      `<div id = item-box>
-      Id:          ${newItem.id}<br>
-      Name:        ${newItem.NAME}<br>
-      Price:       ${newItem.PRICE}<br><br>`
-    );
+  // Save a new product to the database, using the input in the form
+  var submitProduct = function () {
+  
+    // Get input values from each of the form elements
+    var name = $("#name").val();
+    var price = $("#price").val();
+  
+    // Push a new recommendation to the database using those values
+    product.push({
+      "name": name,
+      "price": price,
+    });
+  };
+  console.log(price + "" + name)
 
-    console.log(newItem);
-    items.push(newItem);
-    
-  });
+})
 
-});
 
 
 

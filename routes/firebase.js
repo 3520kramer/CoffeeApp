@@ -19,11 +19,11 @@ router.get("/orderslist", (req, res) => {
   let number_of_orders
   
     // Getting the snapshot of the order collection
-    db.collection('orders').get().then( orderSnapshot => {
-      number_of_orders = orderSnapshot.size
+    db.collection('orders').get().then( productSnapshot => {
+      number_of_orders = productSnapshot.size
   
       // iterating over the order snapshot
-      orderSnapshot.forEach(orderDoc => {
+      productSnapshot.forEach(orderDoc => {
   
         // creating an order object and assigning the ID and the rest of the information from the database
         var order = {
@@ -76,42 +76,67 @@ router.get("/orderslist", (req, res) => {
     
 });
     
-    
-    
-    /*
-    let getCoffee = snapshot.docs.map((doc) => {
-      return doc.data();
-    });
-   
-    // working on route for subcollection orders/products  
-    /*
-    db.collection("orders/" + getDoc.id + "/products").get().then((snapshot) => {
-
-      let getProductDoc = snapshot.docs.map((doc) => {
-        return doc.data();
-      });
-      console.log(getProductDoc);
-    });
-    
-   
-    console.log(getCoffee)
-    return res.json(getCoffee);
-
-  }).catch((err) => {
-    console.log('Error getting documents', err);
-  });
-  */
-
-
-/*
-router.post("/testPost", (req, res) => {
-  // used when sending to db
-  const docRef = db.collection("coffee").doc();  
   
-  // create object and sends to database collection coffee
-  docRef.set({title: "new test from post"});
+//test route for database 
+router.get("/products", (req, res) => {    
+    
+  let products = []
+  let number_of_products
+  
+    // Getting the snapshot of the order collection
+    db.collection('coffeeshops').get().then( productSnapshot => {
+      number_of_products = productSnapshot.size
+  
+      // iterating over the order snapshot
+      productSnapshot.forEach(coffeeshopDoc => {
+  
+        // creating an order object and assigning the ID and the rest of the information from the database
+        var coffeeshop = {
+          id: coffeeshopDoc.id,
+          coordinates: coffeeshopDoc.data().coordinates,
+          marker_description: coffeeshopDoc.data().marker_description,
+          name: coffeeshopDoc.data().name,
+          products: []
+        }
+        // using the id, to get the products from the subcollection
+        db.collection('coffeeshops/' + coffeeshop.id + '/products').get().then( productSnapshot => {
+        
+          // iterating over the product snapshot
+     
+          productSnapshot.forEach(productDoc => {
+            // creating a product object
+            var product = {
+              name: productDoc.data().name,
+              price: productDoc.data().price
+            }
 
+            // then we push the product object to the list of products in the order object
+            coffeeshop.products.push(product)
+  
+          });
+  
+          // we are finished iterating over the productsnapshot and now we can push it to the orders list
+          products.push(coffeeshop)
+  
+          // checks if the list is filled with everything from the database
+          if(products.length == number_of_products){
+            console.log('efter push', products)
+            return res.json(products)
+          }
+        });
+
+      });
+  
+  });
+    
 });
-*/
+    
+
+
+
+
+
+
+
 // last
 module.exports = router
