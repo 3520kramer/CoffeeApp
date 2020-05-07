@@ -13,8 +13,14 @@ $(document).ready( () =>{
           $clone.find('.customer_name').text(item.customer_name);
           $clone.find('.date').text(item.date);
           $clone.find('.time').text(item.time);
+          $clone.find('.comments').text(item.comments);
           $clone.find('.total').text(item.total + ' Kr.');
-      
+
+          // accept and cancel buttons
+          $clone.find('.order_status').html(`<button type="button" onclick="alert(${item.total})">Accept</button>` + 
+          `<button type="button" onclick="alert(${item.total})">Cancel</button>`);
+          
+          
           // loops through orders product name
           let productsName = item.products.map(prod => `${prod.name}`);
           $clone.find('.products').html(productsName.join('<br />'));
@@ -32,7 +38,3 @@ $(document).ready( () =>{
     });
 
 });
-/*
-<input type="button" onclick="${$("#frontpage_ready_ordertable").append(data[i])}" value="Ready"/>
-<input type="button" onclick="insert(this)" value="Cancel"/>
-*/
