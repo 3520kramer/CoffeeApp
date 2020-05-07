@@ -13,7 +13,8 @@ import FirebaseFirestore
 class ViewControllerWithMap: UIViewController {
 
     @IBOutlet weak var map: MKMapView!
-        
+    @IBOutlet weak var tableWithNearbyShops: UITableView!
+    
     private let locationManager = CLLocationManager() // core location manager used to query for gps data
     private let regionInMeters: Double = 10000 // how much we wan't the map to be zoomed in
     
@@ -23,6 +24,9 @@ class ViewControllerWithMap: UIViewController {
         super.viewDidLoad()
         
         map.delegate = self
+        
+        tableWithNearbyShops.delegate = self
+        tableWithNearbyShops.dataSource = self
         
         checkLocationService()
                 
@@ -273,4 +277,22 @@ extension ViewControllerWithMap: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
+}
+
+extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CoffeeShopRepo.coffeeShopList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let coffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row]
+        
+        let cell = tableWithNearbyShops.dequeueReusableCell(withIdentifier: "cell") as! CoffeeShopCell
+        
+        return cell
+    }
+    
+    
+    
 }
