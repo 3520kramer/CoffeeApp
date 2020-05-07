@@ -11,9 +11,30 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+const bodyParser = require("body-parser");
 
+/** bodyParser.urlencoded(options)
+ * Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST)
+ * and exposes the resulting object (containing the keys and values) on req.body
+ */
+router.use(bodyParser.urlencoded({
+    extended: true
+}));
 
+/**bodyParser.json(options)
+ * Parses the text as JSON and exposes the resulting object on req.body.
+ */
+router.use(bodyParser.json());
 
+router.post("/newProduct", function (req, res) {
+
+    var newProduct = {
+      name: req.body.name,
+      price: req.body.price
+    }
+
+    let setDoc = db.collection('coffeeshops').doc('FVFkkD7s8xNdDgh3zAyd').collection("products").add(newProduct);
+});
 
 //test route for database 
 router.get("/orderslist", (req, res) => {    
