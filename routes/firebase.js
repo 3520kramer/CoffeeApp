@@ -128,7 +128,6 @@ router.get("/products", (req, res) => {
       });
   
   });
-    
 });
     
 

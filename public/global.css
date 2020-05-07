@@ -2,14 +2,14 @@
 
 body {
     font-family: arial, sans-serif;
-    background-color: #88d498;
+    background-color: #F6FFF8;
     margin: 0;
 }
 
 /* frontpage order table */
 
 #frontpage_new_ordertable, #itempage_new_table {
-    margin-top: 2%;
+    margin-top: 3%;
     border-collapse: collapse;
     width: 60%;
     margin-left: auto;
@@ -28,18 +28,18 @@ td, th {
 }
   
 tr:nth-child(even) {
-    background-color: #c6dabf;
+    background-color: #CCE3DE;
 }
 
 tr:nth-child(odd) {
-    background-color: #1a936f;
+    background-color: #A4C3B2;
 }
 
 /* frontpage navigation */
 
 .navbar {
     overflow: hidden;
-    background-color: #1a936f;
+    background-color: #A4C3B2;
     position: sticky; 
     top: 0;
     width: 100%; 
