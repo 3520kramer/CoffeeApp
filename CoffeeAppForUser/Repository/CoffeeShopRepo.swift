@@ -26,7 +26,7 @@ class CoffeeShopRepo{
                 for doc in snap.documents{
                     let map = doc.data()
                     
-                    let name = doc.documentID
+                    let id = doc.documentID
                     let timeEstimateMin = map["time_estimate_min"] as? Int ?? 99
                     let timeEstimateMax = map["time_estimate_max"] as! Int ?? 99
                     let rating = map["rating"] as? Int ?? 99
@@ -35,13 +35,16 @@ class CoffeeShopRepo{
                     
                     // FOR NOW THE SUBTITLE ON THE MARKER WILL BE THE DOC ID
                     // WE NEED TO FIX THIS LATER
-                    let annotation = mapDataAdapter(title: name, subtitle: doc.documentID, geoPoint: geoPoint)
+                    let annotation = mapDataAdapter(title: id, subtitle: doc.documentID, geoPoint: geoPoint)
                     
-                    let coffeeShop = CoffeeShop(name: name, timeEstimateMin: timeEstimateMin, timeEstimateMax: timeEstimateMax, rating: rating, marker: annotation)
+                    let coffeeShop = CoffeeShop(id: id, timeEstimateMin: timeEstimateMin, timeEstimateMax: timeEstimateMax, rating: rating, marker: annotation)
                     
                     self.coffeeShopList.append(coffeeShop)
                 }
                 vc.updateMarkersOnMap()
+                
+                // Makes the table update it's data after list is filled, otherwise we would have an empty table
+                vc.tableWithNearbyShops.reloadData()
             }
         }
     }

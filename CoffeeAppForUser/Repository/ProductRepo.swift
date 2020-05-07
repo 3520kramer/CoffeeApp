@@ -13,7 +13,7 @@ import MapKit
 class ProductRepo{
     
     private static let db = Firestore.firestore()
-    private static let collectionName = "coffeeshops"
+    private static let collectionName = "coffeeshopsIOS"
     
     static var productList = [Product]()
     

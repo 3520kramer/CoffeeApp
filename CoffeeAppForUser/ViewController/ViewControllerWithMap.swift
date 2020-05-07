@@ -18,7 +18,7 @@ class ViewControllerWithMap: UIViewController {
     private let locationManager = CLLocationManager() // core location manager used to query for gps data
     private let regionInMeters: Double = 10000 // how much we wan't the map to be zoomed in
     
-    private var selectedMarker: MKPointAnnotation?
+    private var selectedCoffeeShop: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,10 +151,10 @@ class ViewControllerWithMap: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        
+
         if let segueDestination = segue.destination as? ViewControllerMenuForShop{
-            if let marker = selectedMarker{
-                segueDestination.collectionID = marker.subtitle
+            if let selectedCoffeeShop = selectedCoffeeShop{
+                segueDestination.collectionID = selectedCoffeeShop
             }
         }
     }
@@ -223,7 +223,10 @@ extension ViewControllerWithMap: MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        selectedMarker = view.annotation as? MKPointAnnotation // used for segue
+        //selectedCoffeeShop = view.annotation?.title as? MKPointAnnotation // used for segue
+        if let annotation = view.annotation as? MKPointAnnotation{
+            selectedCoffeeShop = annotation.title
+        }
         
         /* FOR CUSTOM ANNOTATION
         // We use a guard statement to check if the annotation is a user location
@@ -288,11 +291,22 @@ extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let coffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row]
         
-        let cell = tableWithNearbyShops.dequeueReusableCell(withIdentifier: "cell") as! CoffeeShopCell
+        let cell = tableWithNearbyShops.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CoffeeShopCell
+
+        cell.setCell(coffeeshop: coffeeShop)
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCoffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row].id
+        
+        performSegue(withIdentifier: "showDetail", sender: nil)
+    }
     
     
 }

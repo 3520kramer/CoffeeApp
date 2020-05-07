@@ -10,6 +10,14 @@ import UIKit
 
 class CoffeeShopCell: UITableViewCell {
 
+    @IBOutlet weak var logoView: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var timeEstimateLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +30,12 @@ class CoffeeShopCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setCell(){
+    func setCell(coffeeshop: CoffeeShop){
+        logoView.image = #imageLiteral(resourceName: "coffeeshop_logo_demo")
+        nameLabel.text = coffeeshop.id
+        timeEstimateLabel.text = "\(coffeeshop.timeEstimateMin) - \(coffeeshop.timeEstimateMax) minutes"
+        ratingLabel.text = "\(coffeeshop.rating) / 5 stars"
+        distanceLabel.text = "0.8 kilometers from you"
         
     }
 }
