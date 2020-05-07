@@ -11,17 +11,21 @@ import MapKit
 
 class CoffeeShop{
     
-    var id: String
     var name: String
+    var timeEstimateMin: Int
+    var timeEstimateMax: Int
+    var rating: Int
     var marker: MKPointAnnotation
     
     /* FOR CUSTOM ANNOTATION
     var marker: CoffeeShopAnnotation
     */
     
-    init(id: String, name: String, marker: MKPointAnnotation) {
-        self.id = id
+    init(name: String, timeEstimateMin: Int, timeEstimateMax: Int, rating: Int, marker: MKPointAnnotation) {
         self.name = name
+        self.timeEstimateMin = timeEstimateMin
+        self.timeEstimateMax = timeEstimateMax
+        self.rating = rating
         self.marker = marker
     }
     

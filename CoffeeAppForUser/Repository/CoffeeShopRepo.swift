@@ -13,7 +13,7 @@ import MapKit
 class CoffeeShopRepo{
     
     private static let db = Firestore.firestore()
-    private static let collectionName = "coffeeshops"
+    private static let collectionName = "coffeeshopsIOS"
     
     static var coffeeShopList = [CoffeeShop]()
     
@@ -26,16 +26,18 @@ class CoffeeShopRepo{
                 for doc in snap.documents{
                     let map = doc.data()
                     
-                    let name = map["name"] as! String
-                    let markerDescription = map["marker_description"] as! String
+                    let name = doc.documentID
+                    let timeEstimateMin = map["time_estimate_min"] as? Int ?? 99
+                    let timeEstimateMax = map["time_estimate_max"] as! Int ?? 99
+                    let rating = map["rating"] as? Int ?? 99
                     let geoPoint = map["coordinates"] as! GeoPoint
                     
                     
                     // FOR NOW THE SUBTITLE ON THE MARKER WILL BE THE DOC ID
                     // WE NEED TO FIX THIS LATER
-                    let annotation = mapDataAdapter(id: doc.documentID, title: name, subtitle: doc.documentID, geoPoint: geoPoint)
+                    let annotation = mapDataAdapter(title: name, subtitle: doc.documentID, geoPoint: geoPoint)
                     
-                    let coffeeShop = CoffeeShop(id: doc.documentID, name: name, marker: annotation)
+                    let coffeeShop = CoffeeShop(name: name, timeEstimateMin: timeEstimateMin, timeEstimateMax: timeEstimateMax, rating: rating, marker: annotation)
                     
                     self.coffeeShopList.append(coffeeShop)
                 }
@@ -46,7 +48,7 @@ class CoffeeShopRepo{
     
     // old way
     
-    static func mapDataAdapter(id: String, title: String, subtitle: String, geoPoint: GeoPoint) -> MKPointAnnotation {
+    static func mapDataAdapter(title: String, subtitle: String, geoPoint: GeoPoint) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         
         annotation.title = title
