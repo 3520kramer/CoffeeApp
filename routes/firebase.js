@@ -12,6 +12,9 @@ admin.initializeApp({
 const db = admin.firestore();
 
 
+
+
+
 //test route for database 
 router.get("/orderslist", (req, res) => {    
     
@@ -120,7 +123,6 @@ router.get("/products", (req, res) => {
   
           // checks if the list is filled with everything from the database
           if(products.length == number_of_products){
-            console.log('efter push', products)
             return res.json(products)
           }
         });
@@ -130,12 +132,6 @@ router.get("/products", (req, res) => {
   });
     
 });
-    
-
-
-
-
-
 
 
 // last

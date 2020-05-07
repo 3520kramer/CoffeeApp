@@ -11,8 +11,7 @@
 <body>
     <div class="navbar">
         <img id="logo_frontpage" src="/./logo.png" alt="logo">
-        <a href="/logout">Log out</a>
-        <a href="/news">Archive</a>
+        <a href="/logout">Log out</a> <a href="/news">Archive</a>
         <a href="/">Home</a>
       </div>
 
@@ -32,15 +31,17 @@
         </tfoot>
       </table>
 
+
     <div id="itemTable">
         <p id="Items"></p>
     
-        <p >Name: <input type="text" id="name"></input></p>
-        <p >Price: <input type="text" id="price"></input></p>
-
-        <br>
-
-        <button id="addItem-button">Add item!</button>
+  <form id="productForm" method="POST" action="/products">
+    <label for="name">Name: </label><br>
+    <input type="text" id="fname" name="name" value=""><br>
+    <label for="price">Price: </label><br>
+    <input type="number" id="lname" name="price" value=""><br><br>
+    <input type="submit" value="Submit">
+</form> 
     
     </div>
     

@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 
 
+
 // Makes public folder static, so it's always accessable    
 app.use(express.static("public"));
 
