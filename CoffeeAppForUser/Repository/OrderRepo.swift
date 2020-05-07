@@ -27,7 +27,7 @@ class OrderRepo{
         order.setDateAndTime()
         
         // fills the map
-        orderMap["customer_email"] = order.customerEmail
+        orderMap["customer_name"] = order.customerEmail
         orderMap["date"] = order.date
         orderMap["time"] = order.time
         orderMap["total"] = order.total
