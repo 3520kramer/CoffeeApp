@@ -15,10 +15,10 @@ class ViewControllerWithMap: UIViewController {
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var tableWithNearbyShops: UITableView!
     
-    private let locationManager = CLLocationManager() // core location manager used to query for gps data
-    private let regionInMeters: Double = 10000 // how much we wan't the map to be zoomed in
+    let locationManager = CLLocationManager() // core location manager used to query for gps data
+    let regionInMeters: Double = 10000 // how much we wan't the map to be zoomed in
     
-    private var selectedCoffeeShop: String?
+    var selectedCoffeeShop: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,9 +102,6 @@ class ViewControllerWithMap: UIViewController {
         locationManager.startUpdatingLocation() // Calls the didUpdateLocation method in the extension
         //if the user moves, the locationmanager will update the location
     }
-
-    @IBAction func longPressGesture(_ sender: Any) {
-    }
     
     
     // MARK: - Map View Setup
@@ -159,6 +156,8 @@ class ViewControllerWithMap: UIViewController {
         }
     }
 }
+
+// MARK: - MapView Annotation setup
 
 extension ViewControllerWithMap: MKMapViewDelegate{
     // function that styles each annotation accept the user location
@@ -265,6 +264,7 @@ extension ViewControllerWithMap: MKMapViewDelegate{
     }
 }
 
+// MARK: - Location manager setup
 extension ViewControllerWithMap: CLLocationManagerDelegate {
     
     // every time the user moves, this function is fired off
@@ -274,14 +274,20 @@ extension ViewControllerWithMap: CLLocationManagerDelegate {
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
         map.setRegion(region, animated: true)
+        
+        // reloads the tabledata as the user has moved and we need to calculate a new distance to the coffeeshops
+        tableWithNearbyShops.reloadData()
     }
     
     // if the authorization changes, then we need to call our checkAuthorization function from above
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
+    
+    
 }
 
+// MARK: - TableView Setup
 extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -293,8 +299,7 @@ extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableWithNearbyShops.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CoffeeShopCell
 
-        cell.setCell(coffeeshop: coffeeShop)
-        
+        cell.setCell(vc: self, coffeeshop: coffeeShop)
         return cell
     }
     

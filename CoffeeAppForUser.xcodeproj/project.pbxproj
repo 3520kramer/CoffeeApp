@@ -34,6 +34,7 @@
 		4C38A23E2445EF9B004E50CB /* ProductRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C38A23D2445EF9B004E50CB /* ProductRepo.swift */; };
 		4C7E30342445BA5E004E56CB /* ViewControllerWithMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */; };
 		4C9E214A24640BBA00404F6B /* CoffeeShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E214924640BBA00404F6B /* CoffeeShopCell.swift */; };
+		4CB2CD9E246ACE87009843E8 /* MenuTableProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2CD9D246ACE87009843E8 /* MenuTableProductCell.swift */; };
 		E4A7FC54647BA5360DF809D3 /* Pods_CoffeeAppForUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C76BFA610EC3242392FCF3 /* Pods_CoffeeAppForUser.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,8 @@
 		4C38A23D2445EF9B004E50CB /* ProductRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRepo.swift; sourceTree = "<group>"; };
 		4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerWithMap.swift; sourceTree = "<group>"; };
 		4C9E214924640BBA00404F6B /* CoffeeShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopCell.swift; sourceTree = "<group>"; };
+		4CB2CD9C246AA4DF009843E8 /* Playgorund.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playgorund.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4CB2CD9D246ACE87009843E8 /* MenuTableProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableProductCell.swift; sourceTree = "<group>"; };
 		735012AB88A792925AB260CC /* Pods-CoffeeAppForUser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeAppForUser.debug.xcconfig"; path = "Target Support Files/Pods-CoffeeAppForUser/Pods-CoffeeAppForUser.debug.xcconfig"; sourceTree = "<group>"; };
 		A9C76BFA610EC3242392FCF3 /* Pods_CoffeeAppForUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeAppForUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,6 +108,7 @@
 		4C05F7B0243F241A00EAD78C /* CoffeeAppForUser */ = {
 			isa = PBXGroup;
 			children = (
+				4CB2CD9B246AA4D6009843E8 /* Playgrounds */,
 				4C9E21462464082F00404F6B /* Custom Cell */,
 				4C23301F2451896600B279D8 /* Authentication */,
 				4C233010244851EE00B279D8 /* CustomAnnotation */,
@@ -181,8 +185,17 @@
 			isa = PBXGroup;
 			children = (
 				4C9E214924640BBA00404F6B /* CoffeeShopCell.swift */,
+				4CB2CD9D246ACE87009843E8 /* MenuTableProductCell.swift */,
 			);
 			path = "Custom Cell";
+			sourceTree = "<group>";
+		};
+		4CB2CD9B246AA4D6009843E8 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				4CB2CD9C246AA4DF009843E8 /* Playgorund.playground */,
+			);
+			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 		7A9C32017AD9095DF1854A5C /* Frameworks */ = {
@@ -327,6 +340,7 @@
 				4C05F7B6243F241A00EAD78C /* ViewController.swift in Sources */,
 				4C38A23A2445EE5D004E50CB /* ViewControllerMenuForShop.swift in Sources */,
 				4C38A2362445BEB1004E50CB /* CoffeeShop.swift in Sources */,
+				4CB2CD9E246ACE87009843E8 /* MenuTableProductCell.swift in Sources */,
 				4C2330212451898800B279D8 /* AuthorizationManager.swift in Sources */,
 				4C23301E2451862300B279D8 /* ViewControllerSignIn.swift in Sources */,
 				4C2330232451987D00B279D8 /* ViewControllerProfile.swift in Sources */,

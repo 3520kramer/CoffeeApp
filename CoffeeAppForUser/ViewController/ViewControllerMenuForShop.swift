@@ -49,10 +49,12 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let product = ProductRepo.productList[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MenuTableProductCell
         
-        cell.textLabel?.text = ProductRepo.productList[indexPath.row].name
+        
+        cell.setCell(product: product)
         
         return cell
     }
