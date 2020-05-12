@@ -8,11 +8,13 @@ $(document).ready( () =>{
         let $clone = $('#itempage_new_table tfoot tr').clone();
     
         let productsName = item.products.map(prod => `${prod.name}`);
-        let productsPrice = item.products.map(prod => `${prod.price} Kr.`);
-
         $clone.find('.name').html(productsName.join('<br />'));
+
         
+        let productsPrice = item.products.map(prod => `${prod.price} Kr.`);
         $clone.find('.price').html(productsPrice.join('<br />'));
+        
+        
         return $clone;
       });
       $("#itempage_new_table tbody").append(rows);

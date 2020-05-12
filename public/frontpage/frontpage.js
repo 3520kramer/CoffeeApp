@@ -7,20 +7,26 @@ $(document).ready( () =>{
     // jquery getting our json order data from API
     $.get("http://localhost:8888/orderslist", (data) => {    
        
+
         // loops through our orderlist api
         let rows = data.map(item => {
           let $clone = $('#frontpage_new_ordertable tfoot tr').clone();
           $clone.find('.customer_name').text(item.customer_name);
           $clone.find('.date').text(item.date);
           $clone.find('.time').text(item.time);
+          $clone.find('.pickup').text(item.pickup);
           $clone.find('.comments').text(item.comments);
           $clone.find('.total').text(item.total + ' Kr.');
 
+          let foo = function(){
+            console.log(item.id)
+          }
+
           // accept and cancel buttons
-          $clone.find('.order_status').html(`<button type="button" onclick="alert(${item.total})">Accept</button>` + 
-          `<button type="button" onclick="alert(${item.total})">Cancel</button>`);
-          
-          
+          $clone.find('.order_status').html(
+            `<button type="button" onclick="${foo()}">Accept</button>` + 
+            `<button type="button" onclick="alert(${item.total})">Cancel</button>`
+          );
           // loops through orders product name
           let productsName = item.products.map(prod => `${prod.name}`);
           $clone.find('.products').html(productsName.join('<br />'));
@@ -29,9 +35,14 @@ $(document).ready( () =>{
           let productsPrice = item.products.map(prod => `${prod.price} Kr.`);
           $clone.find('.price').html(productsPrice.join('<br />'));
           
+    
           
           return $clone;
         });
+
+       
+
+
 
         //appends to our frontpage html 
         $("#frontpage_new_ordertable tbody").append(rows);
