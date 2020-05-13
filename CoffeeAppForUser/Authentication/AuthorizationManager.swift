@@ -50,12 +50,21 @@ class AuthorizationManager{
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] (authResult, error) in
             guard let self = self else { return }
-                          
-            
+        
             if error == nil{
                 print("SUCCES")
+                // remvoes the signin view from the viewcontroller with animation
+                UIView.transition(with: self.parentVC.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+
+                }, completion: nil)
                 
-                self.parentVC.dismiss(animated: true, completion: nil)
+                // remvoes the blurry view and the signin view from the viewcontroller
+                self.parentVC.view.viewWithTag(1)?.removeFromSuperview()
+                self.parentVC.view.viewWithTag(2)?.removeFromSuperview()
+                //self.parentVC.view.viewWithTag(1)?.removeFromSuperview()
+                //self.parentVC.view.viewWithTag(2)?.removeFromSuperview()
+                //self.parentVC.dismiss(animated: true, completion: nil)
+                
             }else{
                 print("Failed")
             }

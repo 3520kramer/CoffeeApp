@@ -17,9 +17,7 @@ class ViewControllerProfile: UIViewController {
         super.viewDidLoad()
 
         authManager = AuthorizationManager.init(parentVC: self)
-        
-        // Do any additional setup after loading the view.
-        
+            
     }
     
     // Everything in this function will get called every time the view appears
@@ -27,6 +25,7 @@ class ViewControllerProfile: UIViewController {
         super.viewWillAppear(true)
         
         if authManager.auth.currentUser == nil{
+            print("showing login")
             showLogInOption()
         }
         
@@ -35,42 +34,45 @@ class ViewControllerProfile: UIViewController {
     
     // Everything in this function will get called when the view disappears
     override func viewDidDisappear(_ animated: Bool) {
-        // what
+        hideLogInOption()
     }
     
-
     func showLogInOption(){
-        // Creates a new viewcontroller which slides up from the bottom
-        let ViewControllerSignIn = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "signIn") as ViewControllerSignIn
-        
-        // A 'UIView' was created on the new view controller in the storyboard, and moved to the bottom of the view controller
-        // The background of the pop up view controllers opacity is set to 0 and the presentation style is set to 'over current context' to make sure it's on top of the old view
-        // This makes the rest of the view controller 'invisible', so when the 'UIView' pops up, the rest of the view controller isn't visible
-        ViewControllerSignIn.modalPresentationStyle = .overCurrentContext
-        
-        // The crossdisolve creates the effect we want, instead of the view's sliding up from the bottom
-        ViewControllerSignIn.modalTransitionStyle = .crossDissolve
-        
         // creates a new view with a blurry effect
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds // TODO: could be changed so it doesn't include the tap bar
+        
+        // Assigns it a tag as identifier
+        blurEffectView.tag = 1
+        
+        // sets the frame of the view to be the bounds of the viewcontroller (everything except tab bar controller)
+        blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        // the view is added as a subview and then placed behind the login form pop up
-        ViewControllerSignIn.view.addSubview(blurEffectView)
-        ViewControllerSignIn.view.sendSubviewToBack(blurEffectView)
+        // the view is added as a subview
+        view.addSubview(blurEffectView)
         
-        // The new view is presented on top of the old view controller
-        present(ViewControllerSignIn, animated: true, completion: {
-            // When tapping outside of the view, the pop up will be dismissed
-            // TODO: CHANGE THIS TO NOT DISMISSING THE VIEW UNLESS YOU TAP THE TAP BAR
-            ViewControllerSignIn.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
-        })
+        // loads the view and assign it as a SignInView
+        let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
+        let signInView = views?[0] as! SignInView
+        
+        // Assigns it a tag as identifier
+        signInView.tag = 2
+        
+        // set it to center and adds it to the view
+        signInView.center = view.center
+        view.addSubview(signInView)
+        
+        // when the button is pressed, we need to perform the signing in at firebase
+        signInView.buttonHandler = { email, password in
+            self.authManager.signIn(email: email, password: password)
+        }
     }
     
-    @objc func dismissOnTapOutside(){
-        self.dismiss(animated: true, completion: nil)
+    // function that hides the view
+    func hideLogInOption(){
+        view.viewWithTag(1)?.removeFromSuperview() // removes sign in box
+        view.viewWithTag(2)?.removeFromSuperview() // removes blur effect
     }
     
     @IBAction func signOutPressed(_ sender: Any) {

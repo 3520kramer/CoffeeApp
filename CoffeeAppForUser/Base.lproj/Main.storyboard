@@ -200,55 +200,6 @@
             <point key="canvasLocation" x="3395.652173913044" y="18.75"/>
         </scene>
         <!--Profile-->
-        <scene sceneID="lPn-H8-XdT">
-            <objects>
-                <viewController storyboardIdentifier="signIn" id="SKb-oi-eBU" customClass="ViewControllerSignIn" customModule="CoffeeAppForUser" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Wm3-Mr-s7W">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qF6-pS-XOD">
-                                <rect key="frame" x="82" y="323" width="250" height="250"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Leh-Cz-kZw">
-                                        <rect key="frame" x="52" y="54" width="146" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iG2-qR-lJh">
-                                        <rect key="frame" x="52" y="111" width="146" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kiq-aN-4x5">
-                                        <rect key="frame" x="151" y="167" width="47" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Sign in"/>
-                                        <connections>
-                                            <action selector="signInPressed:" destination="SKb-oi-eBU" eventType="touchUpInside" id="VTT-cQ-TJN"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
-                        <viewLayoutGuide key="safeArea" id="cdL-yj-Dyf"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" id="sRJ-fx-sLX"/>
-                    <connections>
-                        <outlet property="emailField" destination="Leh-Cz-kZw" id="dCX-qf-8O7"/>
-                        <outlet property="passwordField" destination="iG2-qR-lJh" id="bxw-gP-ytN"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j9x-Fn-V84" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3395.652173913044" y="683.70535714285711"/>
-        </scene>
-        <!--Profile-->
         <scene sceneID="Fiy-L3-dco">
             <objects>
                 <viewController id="kxA-WC-aRE" customClass="ViewControllerProfile" customModule="CoffeeAppForUser" customModuleProvider="target" sceneMemberID="viewController">
@@ -274,7 +225,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8xX-JK-VDG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="684"/>
+            <point key="canvasLocation" x="2582.608695652174" y="683.70535714285711"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="8Hz-4R-raM">

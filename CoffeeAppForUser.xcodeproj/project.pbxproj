@@ -24,7 +24,6 @@
 		4C2330122448523100B279D8 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2330112448523100B279D8 /* CustomAnnotationView.swift */; };
 		4C2330142448542300B279D8 /* CoffeeShopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2330132448542300B279D8 /* CoffeeShopAnnotation.swift */; };
 		4C2330162448555800B279D8 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2330152448555800B279D8 /* AnnotationView.swift */; };
-		4C23301E2451862300B279D8 /* ViewControllerSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23301D2451862300B279D8 /* ViewControllerSignIn.swift */; };
 		4C2330212451898800B279D8 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2330202451898800B279D8 /* AuthorizationManager.swift */; };
 		4C2330232451987D00B279D8 /* ViewControllerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2330222451987D00B279D8 /* ViewControllerProfile.swift */; };
 		4C38A2362445BEB1004E50CB /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C38A2352445BEB1004E50CB /* CoffeeShop.swift */; };
@@ -35,6 +34,8 @@
 		4C7E30342445BA5E004E56CB /* ViewControllerWithMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */; };
 		4C9E214A24640BBA00404F6B /* CoffeeShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E214924640BBA00404F6B /* CoffeeShopCell.swift */; };
 		4CB2CD9E246ACE87009843E8 /* MenuTableProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2CD9D246ACE87009843E8 /* MenuTableProductCell.swift */; };
+		4CB2CDA0246AEC4C009843E8 /* SignInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2CD9F246AEC4C009843E8 /* SignInView.xib */; };
+		4CB2CDA2246AECD0009843E8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2CDA1246AECD0009843E8 /* SignInView.swift */; };
 		E4A7FC54647BA5360DF809D3 /* Pods_CoffeeAppForUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C76BFA610EC3242392FCF3 /* Pods_CoffeeAppForUser.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +60,6 @@
 		4C2330112448523100B279D8 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		4C2330132448542300B279D8 /* CoffeeShopAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopAnnotation.swift; sourceTree = "<group>"; };
 		4C2330152448555800B279D8 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
-		4C23301D2451862300B279D8 /* ViewControllerSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSignIn.swift; sourceTree = "<group>"; };
 		4C2330202451898800B279D8 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		4C2330222451987D00B279D8 /* ViewControllerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProfile.swift; sourceTree = "<group>"; };
 		4C38A2352445BEB1004E50CB /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
@@ -71,6 +71,8 @@
 		4C9E214924640BBA00404F6B /* CoffeeShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopCell.swift; sourceTree = "<group>"; };
 		4CB2CD9C246AA4DF009843E8 /* Playgorund.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playgorund.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4CB2CD9D246ACE87009843E8 /* MenuTableProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableProductCell.swift; sourceTree = "<group>"; };
+		4CB2CD9F246AEC4C009843E8 /* SignInView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInView.xib; sourceTree = "<group>"; };
+		4CB2CDA1246AECD0009843E8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		735012AB88A792925AB260CC /* Pods-CoffeeAppForUser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeAppForUser.debug.xcconfig"; path = "Target Support Files/Pods-CoffeeAppForUser/Pods-CoffeeAppForUser.debug.xcconfig"; sourceTree = "<group>"; };
 		A9C76BFA610EC3242392FCF3 /* Pods_CoffeeAppForUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeAppForUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 				4C9E21462464082F00404F6B /* Custom Cell */,
 				4C23301F2451896600B279D8 /* Authentication */,
 				4C233010244851EE00B279D8 /* CustomAnnotation */,
+				4CBFC6E2246BE19E004FD7F3 /* View */,
 				4C7E30352445BA66004E56CB /* ViewController */,
 				4C05F7C8243F256300EAD78C /* Repository */,
 				4C05F7C7243F255B00EAD78C /* Model */,
@@ -174,7 +177,6 @@
 				4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */,
 				4C38A2392445EE5D004E50CB /* ViewControllerMenuForShop.swift */,
 				4C2330222451987D00B279D8 /* ViewControllerProfile.swift */,
-				4C23301D2451862300B279D8 /* ViewControllerSignIn.swift */,
 				05EBBACD245849AD004D0772 /* ViewControllerInfo.swift */,
 				05F3C1F6246409AE0070CB65 /* ViewControllerOrderPage.swift */,
 			);
@@ -196,6 +198,15 @@
 				4CB2CD9C246AA4DF009843E8 /* Playgorund.playground */,
 			);
 			path = Playgrounds;
+			sourceTree = "<group>";
+		};
+		4CBFC6E2246BE19E004FD7F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4CB2CD9F246AEC4C009843E8 /* SignInView.xib */,
+				4CB2CDA1246AECD0009843E8 /* SignInView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7A9C32017AD9095DF1854A5C /* Frameworks */ = {
@@ -279,6 +290,7 @@
 				4C23300F2448515B00B279D8 /* CustomAnnotationView.xib in Resources */,
 				4C05F7C6243F244D00EAD78C /* GoogleService-Info.plist in Resources */,
 				4C05F7BB243F241B00EAD78C /* Assets.xcassets in Resources */,
+				4CB2CDA0246AEC4C009843E8 /* SignInView.xib in Resources */,
 				4C05F7B9243F241A00EAD78C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,11 +350,11 @@
 				4C05F7CA243F28C700EAD78C /* UserRepo.swift in Sources */,
 				4C7E30342445BA5E004E56CB /* ViewControllerWithMap.swift in Sources */,
 				4C05F7B6243F241A00EAD78C /* ViewController.swift in Sources */,
+				4CB2CDA2246AECD0009843E8 /* SignInView.swift in Sources */,
 				4C38A23A2445EE5D004E50CB /* ViewControllerMenuForShop.swift in Sources */,
 				4C38A2362445BEB1004E50CB /* CoffeeShop.swift in Sources */,
 				4CB2CD9E246ACE87009843E8 /* MenuTableProductCell.swift in Sources */,
 				4C2330212451898800B279D8 /* AuthorizationManager.swift in Sources */,
-				4C23301E2451862300B279D8 /* ViewControllerSignIn.swift in Sources */,
 				4C2330232451987D00B279D8 /* ViewControllerProfile.swift in Sources */,
 				4C2330142448542300B279D8 /* CoffeeShopAnnotation.swift in Sources */,
 				4C2330162448555800B279D8 /* AnnotationView.swift in Sources */,
