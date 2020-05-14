@@ -30,7 +30,8 @@ router.post("/newProduct", function (req, res) {
 
     var newProduct = {
       name: req.body.name,
-      price: req.body.price
+      price: req.body.price,
+      size: req.body.size
     }
 
     let setDoc = db.collection('coffeeshops').doc('FVFkkD7s8xNdDgh3zAyd').collection("products").add(newProduct);
@@ -131,7 +132,8 @@ router.get("/products", (req, res) => {
             // creating a product object
             var product = {
               name: productDoc.data().name,
-              price: productDoc.data().price
+              price: productDoc.data().price,
+              size: productDoc.data().size
             }
 
             // then we push the product object to the list of products in the order object

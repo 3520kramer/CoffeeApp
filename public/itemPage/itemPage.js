@@ -1,23 +1,43 @@
 $(document).ready( () =>{
 
-     // jquery getting our json order data from firebase
-     $.get("http://localhost:8888/products", (data) => {    
-       
-      let rows = data.map(item => {
+      $.ajax({
+        url:'http://localhost:8888/products',
+        method:'GET',
+        contentType: "application/json",    
+        dataType:'json',
+        success:function(response){
+        var trHTML='';
+          for(var i=0;i<response[0].products.length;i++){
 
-        let $clone = $('#itempage_new_table tfoot tr').clone();
-    
-        let productsName = item.products.map(prod => `${prod.name}`);
-        let productsPrice = item.products.map(prod => `${prod.price} Kr.`);
-
-        $clone.find('.name').html(productsName.join('<br />'));
-        
-        $clone.find('.price').html(productsPrice.join('<br />'));
-        return $clone;
+              trHTML=trHTML+'<tr><td>'+response[0].products[i].name+'</td>'+
+              '<td>'+response[0].products[i].size +'<td>'
+              +response[0].products[i].price + '</td>' 
+           }
+           $('#itempage_table').append(trHTML);
+         
+        },
+        error:function(response){
+  
+        }
       });
-      $("#itempage_new_table tbody").append(rows);
-  });
 
+
+
+      $('th').click(function(){
+        var table = $(this).parents('table').eq(0)
+        var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+        this.asc = !this.asc
+        if (!this.asc){rows = rows.reverse()}
+        for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+    })
+    function comparer(index) {
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index)
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+   
 
 })
 
