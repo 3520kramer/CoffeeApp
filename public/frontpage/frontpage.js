@@ -28,7 +28,6 @@ $(document).ready( () =>{
     let btn = $(this);
     let row = btn.closest("tr");
     let id = row.data("id");
-    $(row).css("background-color", "red");
     console.log(id);
 
     $.post('/canceledOrder', { orderId: id });

@@ -44,7 +44,7 @@ router.post("/newProduct", function (req, res) {
     var newProduct = {
       name: req.body.name,
       price: req.body.price,
-      size: req.body.size
+      size: req.body.size,
       quantity: req.body.quantity
     }
 

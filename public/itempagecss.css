@@ -80,8 +80,12 @@
 
 }
 
+#itempage_table {
+  width: 100%;
+}
 
-
-  
+form {
+  text-align: center;
+  } 
   
   
