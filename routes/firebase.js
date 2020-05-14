@@ -26,6 +26,19 @@ router.use(bodyParser.urlencoded({
  */
 router.use(bodyParser.json());
 
+
+router.post("/canceledOrder", function (req, res) {
+  console.log(req.body.orderId);
+  db.collection('orders').doc(req.body.orderId).update({order_status: false});
+});
+
+
+router.post("/acceptedOrder", function (req, res) {
+  console.log(req.body.orderId);
+  db.collection('orders').doc(req.body.orderId).update({order_status: true});
+});
+
+
 router.post("/newProduct", function (req, res) {
 
     var newProduct = {

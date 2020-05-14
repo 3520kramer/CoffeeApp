@@ -8,7 +8,7 @@ body {
 
 /* frontpage order table */
 
-#itemTable {
+#itemTable, #frontpage_new_ordertable {
     margin-top: 1%;
     border-collapse: collapse;
     width: 60%;
@@ -29,7 +29,7 @@ body {
   margin-right: 1;
   margin-left: auto;
 	box-shadow: 0px 0px 0px 0px #1c1b18;
-	background-color#A4C3B2;
+	background-color: #A4C3B2;
 	border-radius:15px;
 	border:2px solid #333029;
 	display:inline-block;
@@ -110,10 +110,3 @@ tr:nth-child(odd) {
     float: right;
     padding-right: 2%;
 }
-
-
-
-
-
-
-
