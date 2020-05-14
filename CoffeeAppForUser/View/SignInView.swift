@@ -22,6 +22,5 @@ class SignInView: UIView {
             buttonHandler?(email, password)
         }
     }
-    
 
 }
