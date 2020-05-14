@@ -100,7 +100,8 @@ tr:nth-child(odd) {
   
   /* Change background on mouse-over */
   .navbar a:hover {
-    background: #c6dabf;
+    font-size: 1.2em;
+    font-weight: bolder;
     color: black;
   }
 
