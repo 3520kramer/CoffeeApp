@@ -69,6 +69,7 @@ router.get("/orderslist", (req, res) => {
           id: orderDoc.id,
           customer_name: orderDoc.data().customer_name,
           date: orderDoc.data().date,
+          comments: orderDoc.data().comments,
           time: orderDoc.data().time,
           total: orderDoc.data().total,
           products: []
