@@ -26,17 +26,32 @@ router.use(bodyParser.urlencoded({
  */
 router.use(bodyParser.json());
 
+router.post("/collectedOrder", function (req, res) {
+  console.log(req.body);
+  console.log(req.body.orderId)
 
-router.post("/canceledOrder", function (req, res) {
-  console.log(req.body.orderId);
-  db.collection('orders').doc(req.body.orderId).update({order_status: false});
+  let archivedOrder = {
+    customer_name: req.body.customer_name
+  }
+  
+  db.collection('archives').doc(req.body.orderId).set(archivedOrder);
+  // db.collection('orders').doc(req.body.orderId).delete();
+  return res.status(202).send(true);
 });
-
 
 router.post("/acceptedOrder", function (req, res) {
   console.log(req.body.orderId);
   db.collection('orders').doc(req.body.orderId).update({order_status: true});
+  return res.status(202).send(true);
 });
+
+
+router.post("/canceledOrder", function (req, res) {
+  db.collection('orders').doc(req.body.orderId).update({order_status: false});
+  // db.collection('orders').doc(req.body.orderId).delete();
+  return res.status(202).send(true);
+});
+
 
 
 router.post("/newProduct", function (req, res) {
@@ -51,14 +66,14 @@ router.post("/newProduct", function (req, res) {
     let setDoc = db.collection('coffeeshops').doc('FVFkkD7s8xNdDgh3zAyd').collection("products").add(newProduct);
 });
 
-//test route for database 
+// route for database 
 router.get("/orderslist", (req, res) => {    
     
   let orders = []
   let number_of_orders
   
     // Getting the snapshot of the order collection
-    db.collection('orders').get().then( productSnapshot => {
+    db.collection('orders').orderBy('time').get().then( productSnapshot => {
       number_of_orders = productSnapshot.size
   
       // iterating over the order snapshot
@@ -72,6 +87,7 @@ router.get("/orderslist", (req, res) => {
           comments: orderDoc.data().comments,
           time: orderDoc.data().time,
           total: orderDoc.data().total,
+          order_status: orderDoc.data().order_status,
           products: []
         }
         // using the id, to get the products from the subcollection
@@ -79,41 +95,31 @@ router.get("/orderslist", (req, res) => {
   
           // iterating over the product snapshot
           productSnapshot.forEach(productDoc => {
-  
             // creating a product object
             var product = {
               name: productDoc.data().name,
               price: productDoc.data().price
             }
   
-            //console.log('product', product)
-  
             // then we push the product object to the list of products in the order object
             order.products.push(product)
   
           });
-          //console.log('ordre: ', order)
   
           // we are finished iterating over the productsnapshot and now we can push it to the orders list
           orders.push(order)
   
           // checks if the list is filled with everything from the database
           if(orders.length == number_of_orders){
-            //console.log('efter push', orders)
-            //console.log('efter push', orders[1].products[0].name)
             return res.json(orders)
           }
   
         });
-        //console.log('efter push', orders[0].products[0].name)
+
       });
   
-      // console.log(orders)
-      // console.log(number_of_orders)
-      // console.log('This Works')
-    
   });
-    
+
 });
     
   
