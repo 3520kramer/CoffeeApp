@@ -27,8 +27,8 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 router.post("/collectedOrder", function (req, res) {
-  console.log(req.body);
-  console.log(req.body.orderId)
+  //console.log(req.body);
+  //console.log(req.body.orderId)
 
   let archivedOrder = {
     customer_name: req.body.customer_name
@@ -40,7 +40,7 @@ router.post("/collectedOrder", function (req, res) {
 });
 
 router.post("/acceptedOrder", function (req, res) {
-  console.log(req.body.orderId);
+  //console.log(req.body.orderId);
   db.collection('orders').doc(req.body.orderId).update({order_status: true});
   return res.status(202).send(true);
 });

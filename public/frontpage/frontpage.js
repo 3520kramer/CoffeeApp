@@ -1,8 +1,4 @@
-// check if the js works
-console.log("frontpage.js works");
-
-// waits for the html doc to be ready before atempting to run any js.
-$(document).ready( () =>{
+$(document).ready( () => {
 
   // event handler at the top-level inside doc.ready
   function collectedOrder() {
