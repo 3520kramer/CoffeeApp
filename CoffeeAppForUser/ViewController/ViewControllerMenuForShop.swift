@@ -12,18 +12,22 @@ class ViewControllerMenuForShop: UIViewController{
 
     @IBOutlet weak var tableView: UITableView!
     
-    var collectionID: String?
+    var order: Order?
+    
+    var coffeeShop: CoffeeShop?
     var selectedProduct: Product?
+    
+    var authManager: AuthorizationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        // Do any additional setup after loading the view.
-        
+        // sets the delegate and datasource for the table
         tableView.delegate = self
         tableView.dataSource = self
         
-        if let id = collectionID{
+        // uses the collectionID which we get from the list of coffeeshops to fetch the products of the coffeeshops and then reloads the tabledata when finished
+        if let id = coffeeShop?.id{
             ProductRepo.startListener(id: id){ () -> () in
                 self.tableView.reloadData()
                 
@@ -31,16 +35,79 @@ class ViewControllerMenuForShop: UIViewController{
         }
     }
     
-    //pass object to next viewcontroller
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("Yo")
-        if let viewControllerInfo = segue.destination as? ViewControllerInfo{
-            if let selectedProduct = selectedProduct{
-                viewControllerInfo.product = selectedProduct
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         
+        // sets the authorizationmanager
+        authManager = AuthorizationManager(parentVC: self)
+        
+        // if the user is logged in we create a new order
+        if let email = authManager.auth.currentUser?.email{
+            order = Order(customerEmail: email)
+            
+        // if not we present an alert to the user
+        }else{
+            presentMissingSigningInAlert()
+        }
+    }
+    
+    @IBAction func checkoutPressed(_ sender: Any) {
+        guard let order = order else {
+            presentMissingSigningInAlert()
+            return
+        }
+        performSegue(withIdentifier: "showShoppingCart", sender: nil)
+    }
+    
+    // creates an alert controller and adds two actions; sign in or continue browsing
+    func presentMissingSigningInAlert(){
+        let alertController = UIAlertController(title: "To be able to make an order you need to be signed in", message: "Please sign in", preferredStyle: .alert)
+            
+        alertController.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
+            // loads the view and assign it as a SignInView
+            let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
+            let signInView = views?[0] as! SignInView
+            
+            signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: false)
+            
+        }))
+        alertController.addAction(UIAlertAction(title: "Never mind", style: .cancel, handler: nil))
+    
+        self.present(alertController, animated: true, completion:{
+            alertController.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
+        })
+    }
+        
+    // function that dismisses the view if user taps outside of the alert box
+    @objc func dismissOnTapOutside(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // pass object to next viewcontroller
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showProduct"{
+            // if we are using the segue to the product info view controller
+            if let destination = segue.destination as? ViewControllerProductInfo{
+                if let selectedProduct = selectedProduct{
+                    destination.parentVC = self
+                    destination.product = selectedProduct
+                }
+            }
+        }else if segue.identifier == "showShoppingCart"{
+            if let destination = segue.destination as? ViewControllerShoppingCart{
+                
+                destination.preferredContentSize = CGSize(width:250, height:400)
+                
+                let presentationController = destination.popoverPresentationController
+                presentationController?.delegate = self
+                
+                guard let order = order else { return }
+                destination.order = order
             }
         }
     }
+    
 }
 
 extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
@@ -51,8 +118,7 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let product = ProductRepo.productList[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MenuTableProductCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProductTableCell
         
         cell.setCell(product: product)
         
@@ -61,11 +127,19 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedProduct = ProductRepo.productList[indexPath.row]
-        performSegue(withIdentifier: "ShowInfo", sender: nil)
+        performSegue(withIdentifier: "showProduct", sender: nil)
         print(selectedProduct?.name)
     }
     
 
 }
+
+extension ViewControllerMenuForShop: UIPopoverPresentationControllerDelegate{
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+}
+
        
 

@@ -17,6 +17,7 @@ class CoffeeShop{
     var rating: Int
     var marker: MKPointAnnotation
     
+    
     /* FOR CUSTOM ANNOTATION
     var marker: CoffeeShopAnnotation
     */

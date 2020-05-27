@@ -16,8 +16,8 @@ class ViewControllerProfile: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        authManager = AuthorizationManager.init(parentVC: self)
-            
+        authManager = AuthorizationManager(parentVC: self)
+
     }
     
     // Everything in this function will get called every time the view appears
@@ -26,7 +26,11 @@ class ViewControllerProfile: UIViewController {
         
         if authManager.auth.currentUser == nil{
             print("showing login")
-            showLogInOption()
+            // loads the view and assign it as a SignInView
+            let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
+            let signInView = views?[0] as! SignInView
+            
+            signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: false)
         }
         
         print("current user: \(authManager.auth.currentUser)")
@@ -35,38 +39,6 @@ class ViewControllerProfile: UIViewController {
     // Everything in this function will get called when the view disappears
     override func viewDidDisappear(_ animated: Bool) {
         hideLogInOption()
-    }
-    
-    func showLogInOption(){
-        // creates a new view with a blurry effect
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        
-        // Assigns it a tag as identifier
-        blurEffectView.tag = 1
-        
-        // sets the frame of the view to be the bounds of the viewcontroller (everything except tab bar controller)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        // the view is added as a subview
-        view.addSubview(blurEffectView)
-        
-        // loads the view and assign it as a SignInView
-        let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
-        let signInView = views?[0] as! SignInView
-        
-        // Assigns it a tag as identifier
-        signInView.tag = 2
-        
-        // set it to center and adds it to the view
-        signInView.center = view.center
-        view.addSubview(signInView)
-        
-        // when the button is pressed, we need to perform the signing in at firebase
-        signInView.buttonHandler = { email, password in
-            self.authManager.signIn(email: email, password: password)
-        }
     }
     
     // function that hides the view

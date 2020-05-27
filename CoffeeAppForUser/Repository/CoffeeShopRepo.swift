@@ -33,8 +33,7 @@ class CoffeeShopRepo{
                     let geoPoint = map["coordinates"] as! GeoPoint
                     
                     
-                    // FOR NOW THE SUBTITLE ON THE MARKER WILL BE THE DOC ID
-                    // WE NEED TO FIX THIS LATER
+                    
                     let annotation = mapDataAdapter(title: id, subtitle: doc.documentID, geoPoint: geoPoint)
                     
                     let coffeeShop = CoffeeShop(id: id, timeEstimateMin: timeEstimateMin, timeEstimateMax: timeEstimateMax, rating: rating, marker: annotation)
@@ -49,8 +48,6 @@ class CoffeeShopRepo{
         }
     }
     
-    // old way
-    
     static func mapDataAdapter(title: String, subtitle: String, geoPoint: GeoPoint) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         
@@ -62,14 +59,14 @@ class CoffeeShopRepo{
         
     }
     
-    /* FOR CUSTOM ANNOTATION
-    static func mapDataAdapter(id: String, title: String, subtitle: String, geoPoint: GeoPoint) -> CoffeeShopAnnotation {
+    // Find a coffeeshop based on a name/id
+    static func getCoffeeShop(with name: String) -> CoffeeShop?{
         
-        let coordinate = CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
-        
-        let annotation = CoffeeShopAnnotation(coordinate: coordinate, name: title)
-        
-        return annotation
+        for shop in coffeeShopList{
+            if shop.id == name{
+                return shop
+            }
+        }
+        return nil
     }
-    */
 }

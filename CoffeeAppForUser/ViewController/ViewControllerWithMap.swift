@@ -18,7 +18,7 @@ class ViewControllerWithMap: UIViewController {
     let locationManager = CLLocationManager() // core location manager used to query for gps data
     let regionInMeters: Double = 10000 // how much we wan't the map to be zoomed in
     
-    var selectedCoffeeShop: String?
+    var selectedCoffeeShop: CoffeeShop?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +151,7 @@ class ViewControllerWithMap: UIViewController {
 
         if let segueDestination = segue.destination as? ViewControllerMenuForShop{
             if let selectedCoffeeShop = selectedCoffeeShop{
-                segueDestination.collectionID = selectedCoffeeShop
+                segueDestination.coffeeShop = selectedCoffeeShop
             }
         }
     }
@@ -180,11 +180,6 @@ extension ViewControllerWithMap: MKMapViewDelegate{
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) // Details button for annotation
 
-
-            /* FOR CUSTOM ANNOTATION
-            annotationView?.canShowCallout = false
-            */
-            
         // if there is one available we reuse it and fills it with data
         }else{
             annotationView?.annotation = annotation
@@ -194,67 +189,14 @@ extension ViewControllerWithMap: MKMapViewDelegate{
         return annotationView
         
         
-        /*
-        // We use a guard statement to check if the annotation is a user location
-        // if the annotation is a user location it shall return nil, or else proceed
-        guard !(annotation is MKUserLocation) else { return nil }
-        
-        // sets the identifier
-        let identifier = "annotation"
-        
-        // Makes sure that we reuse an annotation if it's not in the current view
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        // if there isn't already created annotation available we create a new one
-        if annotationView == nil{
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) // Details button for annotation
-        // if there is one available we reuse it and fills it with data
-        }else{
-            annotationView?.annotation = annotation
-        }
-        
-        // returns the styled annotation
-        return annotationView
-        */
+       
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        //selectedCoffeeShop = view.annotation?.title as? MKPointAnnotation // used for segue
-        if let annotation = view.annotation as? MKPointAnnotation{
-            selectedCoffeeShop = annotation.title
+        if let annotation = view.annotation as? MKPointAnnotation, let title = annotation.title{
+            selectedCoffeeShop = CoffeeShopRepo.getCoffeeShop(with: title)
         }
-        
-        /* FOR CUSTOM ANNOTATION
-        // We use a guard statement to check if the annotation is a user location
-        // if the annotation is a user location it shall return nil, or else proceed
-        guard !(view.annotation is MKUserLocation) else { return }
-        
-        
-        let coffeeShopAnnotation = view.annotation as! CoffeeShopAnnotation
-        
-        let views = Bundle.main.loadNibNamed("CustomAnnotationView", owner: nil, options: nil)
-        let calloutView = views?[0] as! CustomAnnotationView
-        calloutView.nameLabel.text = coffeeShopAnnotation.name
-        calloutView.logoImage.image = #imageLiteral(resourceName: "coffeeshop_logo_demo")
-        
-        calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
-        view.addSubview(calloutView)
-        map.setCenter((view.annotation?.coordinate)!, animated: true)
-        */
-        
     }
-    
-    /* FOR CUSTOM ANNOTATION
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        if view.isKind(of: AnnotationView.self){
-            for subview in view.subviews{
-                subview.removeFromSuperview()
-            }
-        }
-    }*/
     
     // This function is called when you press the button on an annotation
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -298,7 +240,8 @@ extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
         let coffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row]
         
         let cell = tableWithNearbyShops.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CoffeeShopCell
-
+        cell.selectionStyle = .blue
+        
         cell.setCell(vc: self, coffeeshop: coffeeShop)
         return cell
     }
@@ -308,10 +251,12 @@ extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCoffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row].id
+        selectedCoffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row]
         
         performSegue(withIdentifier: "showDetail", sender: nil)
+        
+        // removes the gray color shown when selecting a row
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    
     
 }

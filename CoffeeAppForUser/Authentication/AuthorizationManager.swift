@@ -61,10 +61,6 @@ class AuthorizationManager{
                 // remvoes the blurry view and the signin view from the viewcontroller
                 self.parentVC.view.viewWithTag(1)?.removeFromSuperview()
                 self.parentVC.view.viewWithTag(2)?.removeFromSuperview()
-                //self.parentVC.view.viewWithTag(1)?.removeFromSuperview()
-                //self.parentVC.view.viewWithTag(2)?.removeFromSuperview()
-                //self.parentVC.dismiss(animated: true, completion: nil)
-                
             }else{
                 print("Failed")
             }

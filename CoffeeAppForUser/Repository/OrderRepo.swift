@@ -18,6 +18,8 @@ class OrderRepo{
     private static var orders = [Order]()
     
     static func addOrder(order:Order){
+        
+        
         // creates the new document in the order collection
         let docRef = db.collection(orderCollection).document()
         
@@ -51,7 +53,6 @@ class OrderRepo{
             // adds it to the database
             subDocRef.setData(productMap)
         }
-        
     }
 }
 

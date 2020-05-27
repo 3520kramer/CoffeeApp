@@ -33,11 +33,20 @@
                         <action selector="signInPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="RvZ-zP-ADd"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-V9-bnb">
+                    <rect key="frame" x="26" y="142" width="48" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="RQk-L1-wQj"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="cancelButton" destination="Yo7-V9-bnb" id="W6b-5T-WxN"/>
                 <outlet property="emailTextField" destination="Tkr-JQ-lkZ" id="IEd-1T-BKi"/>
                 <outlet property="passwordTextField" destination="qBu-lv-JVE" id="PKQ-lR-bf7"/>
             </connections>
