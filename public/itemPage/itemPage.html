@@ -1,70 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/global.css">
-    <link rel="stylesheet" href="/itempagecss.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   
-    <title>item page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/global.css">
+  <link rel="stylesheet" href="itempagecss.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <title>item page</title>
 </head>
+
 <body>
-  
-    <div class="navbar">
-        <img id="logo_frontpage" src="/./logo.png" alt="logo">
-        <a href="/logout">Log out</a> <a href="/news">Archive</a>
-        <a href="/">Home</a>
-        <a href="/itemPage">Products</a>
-      </div>
 
-
-    <div class="table-and-modal-box">   
-    <!-- Trigger/Open The Modal -->
-  <button id="myBtn">Add product</button>
-
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-  
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-
-      <form id="productForm" method="POST" action="/newProduct">
-    
-        <label for="name">Name: </label><br>
-        <input type="text" id="fname" name="name" value=""><br>
-        <label for="price">Price: </label><br>
-        <input type="number" id="lname" name="price" value=""><br>
-        <label for="size">Size: </label><br>
-        <select name="size">
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large">Large</option>
-        </select><br>
-        <label for="quantity">Quantity: </label><br>
-        <input type="text" id="quantity" name="quantity" value=""><br><br>
-        <br>
-        <input type="submit" id="productButton" value="Submit">
-    
-    </form> 
-    </div>
-  
+  <div class="navbar">
+    <img id="logo_frontpage" src="/./logo.png" alt="logo">
+    <a href="/">Log out</a> 
+    <a href="/archive">Archive</a>
+    <a href="/orderPage">Orders</a>
+    <a href="/itemPage">Products</a>
   </div>
 
-      <table id="itempage_table">        
-        <tr>
-        <th id="name">Name</th>
-        <th id="size">Size</th>
-        <th id="price">Price</th>
-        <th id="quantity">Quantity</th>
-        </tr>
-  
+  <div class="table-and-modal-box">
+    <button id="myBtn">Add product</button>
 
-        </table>
-     
+    <div id="myModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <form id="productForm" method="POST" action="/newProduct">
+
+          <label for="name">Name: </label><br>
+          <input type="text" id="fname" name="name" value=""><br>
+          <label for="price">Price: </label><br>
+          <input type="number" id="lname" name="price" value=""><br>
+          <label for="size">Size: </label><br>
+          <select name="size">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+          </select><br>
+          <label for="quantity">Quantity: </label><br>
+          <input type="text" id="quantity" name="quantity" value=""><br><br>
+          <br>
+          <input type="submit" id="productButton" value="Submit">
+
+        </form>
       </div>
-    <script src="./itemPage.js"></script>
+    </div>
+  </div>
+
+  <table id="frontpage_new_ordertable">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="name"></td>
+        <td class="price"></td>
+        <td class="size"></td>
+        <td class="quantity"></td>
+        <td class="buttons"></td>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <script src="./itemPage.js"></script>
 
 </body>
+
 </html>

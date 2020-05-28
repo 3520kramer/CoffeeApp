@@ -2,41 +2,27 @@
 const express = require("express");
 const app = express();
 
-
-
 // Makes public folder static, so it's always accessable    
 app.use(express.static("public"));
 
 
 // Routes 
-app.get("/", (req, res) =>{
-    console.log("frontpage");
-    return res.sendFile(__dirname + "/public/frontpage/frontpage.html");
-});
-
-app.get(("/frontpage.js"), (req, res) => {
-    console.log("frontpage.js");
-    return res.sendFile(__dirname + "/public/frontpage/frontpage.js");
+app.get("/orderPage", (req, res) => {
+    console.log("orderPage");
+    return res.sendFile(__dirname + "/public/orderPage/orderPage.html");
 });
 
 app.get(("/itemPage"), (req, res) => {
     return res.sendFile(__dirname + "/public/itemPage/itemPage.html");
 });
 
-app.get(("/itemPage.js"), (req, res) => {
-    console.log("frontpage.js");
-    return res.sendFile(__dirname + "/public/itemPage/itemPage.js");
-});
-
-
 app.get(("/archive"), (req, res) => {
     return res.status(501).send({ response: "Not implmented yet" });
 });
 
-app.get(("/login"), (req, res) => {
+app.get(("/"), (req, res) => {
     return res.status(501).send({ response: "Not implmented yet" });
 });
-
 
 
 // import routes 
@@ -47,6 +33,7 @@ app.use(firebaseRoute);
 
 // Port we listen to for incoming trafic
 const port = process.env.PORT ? process.env.PORT : 8888;
+
 
 //eroor handling
 const server = app.listen(port, (error) => {
