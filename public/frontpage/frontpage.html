@@ -11,54 +11,44 @@
     <title>frontpage</title>
 </head>
 <body>
-    <!-- this is our navigation -->
-    <div class="navbar">
-        <img id="logo_frontpage" src="./logo.png" alt="logo">
-        <a href="/logout">Log out</a>
-        <a href="/news">Archive</a>
-        <a href="/">Home</a>
-        <a href="/itemPage">Products</a>
-      </div>
+  <!-- this is our navigation -->
+  <div class="navbar">
+    <img id="logo_frontpage" src="./logo.png" alt="logo">
+    <a href="/login">Log out</a>
+    <a href="/archive">Archive</a>
+    <a href="/">Orders</a>
+    <a href="/itemPage">Products</a>
+  </div>
 
-      <!-- this is the table of new orders -->
-      <table id="frontpage_new_ordertable">
-        <tbody>
-          <tr>
-            <th>Customer</th>
-            <th>Date</th>
-            <th>Ordered at</th>
-            <!--<th>Wished pickup time</th>-->
-            <th>Order</th>
-            <th>Comments</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Order Status</th>
-            <th></th>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td class="customer_name"></td>
-            <td class="date"></td>
-            <td class="time"></td>
-            <!--<td class="pickup"></td>-->
-            <td class="products"></td>
-            <td class="comments"></td>
-            <td class="price"></td>
-            <td class="total"></td>
-            <td class="order_status"></td>
-            <td class="buttons"></td>
-          </tr>
-        </tfoot>
-      </table>
+  <!-- this is the table of new orders -->
+  <table id="frontpage_new_ordertable">
+    <tbody>
+      <tr>
+        <th>Customer</th>
+        <th>Ordered at</th>
+        <th>Comments</th>
+        <th>Order</th>
+        <th>Price</th>
+        <th>Order Status</th>
+        <th></th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="customer_name"></td>
+        <td class="time"></td>
+        <td class="comments"></td>
+        <td class="products"></td>
+        <td class="price"></td>
+        <td class="order_status"></td>
+        <td class="buttons"></td>
+      </tr>
+    </tfoot>
+  </table>
 
-
-    <!-- this is the table for orders that have been clicked ready -->
-    <div id="frontpage_ready_ordertable"></div>
-
-    <!-- soruce route for our js -->
-    <script src="./frontpage.js"></script>
-
+  
+  <!-- soruce route for our js -->
+  <script src="./frontpage.js"></script>
 
 </body>
 </html>

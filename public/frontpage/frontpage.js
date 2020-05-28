@@ -5,20 +5,14 @@ $(document).ready( () => {
     let btn = $(this);
     let row = btn.closest("tr");
     let id = row.data("id");
-    let name = row.find(".customer_name").text();
     
-    //console.log(id, name);
-
     $.ajax({
       method: "POST",
       url: "/collectedOrder",
-      data: { 
-        orderId: id, 
-        customer_name: name,
-      },
+      data: { orderId: id },
       success: function(status) {
         if (status === true) {
-          alert("Order was moved to Archive");  
+          alert("Order has been archived");  
           location.reload();
         } else { 
           alert("something went wrong");
@@ -32,8 +26,6 @@ $(document).ready( () => {
     let btn = $(this);
     let row = btn.closest("tr");
     let id = row.data("id");
-    //let name = row.find(".customer_name").text();
-    //console.log(id, name);
 
     $.ajax({
       method: "POST",
@@ -55,7 +47,6 @@ $(document).ready( () => {
       let btn = $(this);
       let row = btn.closest("tr");
       let id = row.data("id");
-      //console.log(id);
 
       $.ajax({
         method: "POST",
@@ -63,7 +54,7 @@ $(document).ready( () => {
         data: { orderId: id },
         success: function(status) {
           if (status === true) {
-            alert("Order was deleted");
+            alert("Order was canceled");
             location.reload();  
           } else { 
             alert("something went wrong");
@@ -78,22 +69,25 @@ $(document).ready( () => {
   $(document).on("click", ".cancelOrder", canceledOrder);
   
   
-
   // Jquery getting our json order data from API
   $.get("http://localhost:8888/orderslist", (data) => {    
     
+    // sorts the json data from our get request by the time value
     let sorted = data.sort(function(a, b) {
-        return parseFloat(a.time) - parseFloat(b.time);
+      return parseFloat(a.time) - parseFloat(b.time);
     });
-    // Loops through our orderlist api
+
+    // Loops through our orderlist api and sets up how the table should look like
     let rows = sorted.map(item => {
             
       let $clone = $('#frontpage_new_ordertable tfoot tr').clone();
+      
       $clone.data("id", item.id);
+      $clone.data("coffeshop_id", item.coffeeshop_id);
+      $clone.data("customer_email", item.customer_email);
       $clone.data("order_status", item.order_status);
 
       if (item.order_status === true) {
-        //console.log(item.order_status);
         $clone.find('.order_status').html("<h4>Accepted</h4>");
       }
 
@@ -101,14 +95,14 @@ $(document).ready( () => {
       $clone.find('.date').text(item.date);
       
       let timeToString = item.time.toString();
-      let timeToStringHour = timeToString.slice(0,2)
-      let timeToStringMinute = timeToString.slice(2,4)
-      let timeToStringFullTime = timeToStringHour+":"+timeToStringMinute 
-      $clone.find('.time').text(timeToStringFullTime);
+      let timeToStringHour = timeToString.slice(0,2);
+      let timeToStringMinute = timeToString.slice(2,4);
+      let timeToStringSecond = timeToString.slice(4,6);
+      let timeToStringFullTime = timeToStringHour + ":" + timeToStringMinute + ":" + timeToStringSecond;
+      $clone.find('.time').html(timeToStringFullTime +'<br><br>'+ item.date);
       
-      $clone.find('.pickup').text(item.pickup);
       $clone.find('.comments').text(item.comments);
-      $clone.find('.total').text(item.total + ' Kr.');
+      //$clone.find('.total').text(item.total + ' Kr.');
 
       // buttons to collect, accept and cancel an order
       $clone.find('.buttons').html(

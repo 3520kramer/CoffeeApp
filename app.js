@@ -23,6 +23,20 @@ app.get(("/itemPage"), (req, res) => {
     return res.sendFile(__dirname + "/public/itemPage/itemPage.html");
 });
 
+app.get(("/itemPage.js"), (req, res) => {
+    console.log("frontpage.js");
+    return res.sendFile(__dirname + "/public/itemPage/itemPage.js");
+});
+
+
+app.get(("/archive"), (req, res) => {
+    return res.status(501).send({ response: "Not implmented yet" });
+});
+
+app.get(("/login"), (req, res) => {
+    return res.status(501).send({ response: "Not implmented yet" });
+});
+
 
 
 // import routes 
