@@ -5,12 +5,14 @@ $(document).ready(() => {
         let btn = $(this);
         let row = btn.closest("tr");
         let productId = row.data("productId");
+        let shopId = row.data("shopId");
 
         $.ajax({
             method: "POST",
             url: "/deletedProduct",
             data: { 
                 productId: productId,
+                shopId: shopId,
             },
             success: function (status) {
                 if (status === true) {
@@ -29,10 +31,15 @@ $(document).ready(() => {
     // Jquery getting our json product data from API
     $.get("http://localhost:8888/products", (data) => {
 
+        let shopId = data[0].id
+            console.log(shopId);
+        
         let rows = data[0].products.map(item => {
 
             let $clone = $('#frontpage_new_ordertable tfoot tr').clone();
             $clone.data("productId", item.id);
+            $clone.data("shopId", shopId);
+            
 
             $clone.find('.name').html(item.name);
             $clone.find('.price').html(item.price);
@@ -44,6 +51,8 @@ $(document).ready(() => {
             return $clone;
         });
         
+        console.log(rows)
+
         // appends to our frontpage html 
         $("#frontpage_new_ordertable tbody").append(rows);
 

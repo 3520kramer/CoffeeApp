@@ -28,10 +28,11 @@ router.use(bodyParser.json());
 
 
 router.post("/deletedProduct", function (req, res) {
-  console.log(req.body);
-  // db.collection('coffeeshops').doc(req.body.orderId).update({ archived_status: true });
+  console.log(req.body.productId);
+  console.log(req.body.shopId);
 
-  // let deleteDoc = db.collection('cities').doc('DC').delete();
+  db.collection('coffeeshops/' + req.body.shopId + '/products').doc(req.body.productId).delete();
+
   return res.status(202).send(true);
 });
 
