@@ -1,7 +1,7 @@
 $(document).ready(() => {
 
     // event handler at the top-level inside doc.ready
-    function deletedOrder() {
+    function deletedProduct() {
         let btn = $(this);
         let row = btn.closest("tr");
         let productId = row.data("productId");
@@ -24,7 +24,7 @@ $(document).ready(() => {
     }
 
     // event listener
-    $(document).on("click", ".deleteOrder", deletedOrder);
+    $(document).on("click", ".deleteProduct", deletedProduct);
 
     // Jquery getting our json product data from API
     $.get("http://localhost:8888/products", (data) => {
@@ -39,7 +39,7 @@ $(document).ready(() => {
             $clone.find('.size').html(item.size);
             $clone.find('.quantity').html(item.quantity);
 
-            $clone.find('.buttons').html(`<button class="deleteOrder" type="button">Delete</button><br>`);
+            $clone.find('.buttons').html(`<button class="deleteProduct" type="button">Delete</button><br>`);
 
             return $clone;
         });
