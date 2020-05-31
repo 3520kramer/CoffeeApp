@@ -19,7 +19,6 @@ class CoffeeShopCell: UITableViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,20 +34,37 @@ class CoffeeShopCell: UITableViewCell {
         nameLabel.text = coffeeshop.id
         timeEstimateLabel.text = "\(coffeeshop.timeEstimateMin) - \(coffeeshop.timeEstimateMax) minutes"
         ratingLabel.text = "\(coffeeshop.rating) / 5 stars"
-        distanceLabel.text = calculateDistanceToCoffeeShop(vc: vc, coffeeShopCoordinate: coffeeshop.marker.coordinate)
+        distanceLabel.text = calculateDistanceToCoffeeShop(vc: vc, coffeeShop: coffeeshop)
         
-        print("hey cell")
     }
     
-    func calculateDistanceToCoffeeShop(vc: ViewControllerWithMap, coffeeShopCoordinate: CLLocationCoordinate2D) -> String? {
+    /*func formatDistance(distance: Double){
+        // If statement to configure the right output
+        if distance < 1000{
+           let distanceRounded = (distance / 10).rounded(.down)*10
+           return "\(distanceRounded) m"
+           
+        } else if distance < 10000{
+           let distanceRounded = (distance / 100).rounded(.down)/10
+           return "\(distanceRounded) km"
+           
+        } else {
+           return nil
+        }
+    }*/
+    func calculateDistanceToCoffeeShop(vc: ViewControllerWithMap, coffeeShop: CoffeeShop) -> String? {
         // guard statement to get if the user location is not unknown
         guard let userLocation = vc.locationManager.location else { return nil }
         
         // create a CLLocation from the coffeshops coordinates
-        let coffeeShopLocation = CLLocation(latitude: coffeeShopCoordinate.latitude, longitude: coffeeShopCoordinate.longitude)
+        let coffeeShopLocation = CLLocation(latitude: coffeeShop.marker.coordinate.latitude, longitude: coffeeShop.marker.coordinate.longitude)
         
         // use the userlocation and the CLLoc
         let distance = userLocation.distance(from: coffeeShopLocation)
+        
+        // set the distance to the coffeshop object to be able to sort the list
+        coffeeShop.distanceToUser = distance
+        
         
         print("hey calculator")
         // If statement to configure the right output

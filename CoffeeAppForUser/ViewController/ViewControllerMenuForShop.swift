@@ -18,7 +18,7 @@ class ViewControllerMenuForShop: UIViewController{
     var selectedProduct: Product?
     
     var authManager: AuthorizationManager!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -28,7 +28,7 @@ class ViewControllerMenuForShop: UIViewController{
         
         // uses the collectionID which we get from the list of coffeeshops to fetch the products of the coffeeshops and then reloads the tabledata when finished
         if let id = coffeeShop?.id{
-            ProductRepo.startListener(id: id){ () -> () in
+            ProductRepo.startListener(id: id){
                 self.tableView.reloadData()
                 
             }
@@ -41,14 +41,20 @@ class ViewControllerMenuForShop: UIViewController{
         // sets the authorizationmanager
         authManager = AuthorizationManager(parentVC: self)
         
-        // if the user is logged in we create a new order
-        if let email = authManager.auth.currentUser?.email{
-            order = Order(customerEmail: email)
-            
-        // if not we present an alert to the user
-        }else{
+        guard let userID = authManager.auth.currentUser?.uid else {
             presentMissingSigningInAlert()
+            return
         }
+        
+        guard let name = authManager.auth.currentUser?.displayName else {
+            presentMissingNameAlert()
+            return
+        }
+        
+        if let coffeeShop = coffeeShop{
+            order = Order(userID: userID, customerName: name, coffeeShopID: coffeeShop.id)
+        }
+        
     }
     
     @IBAction func checkoutPressed(_ sender: Any) {
@@ -73,10 +79,24 @@ class ViewControllerMenuForShop: UIViewController{
         }))
         alertController.addAction(UIAlertAction(title: "Never mind", style: .cancel, handler: nil))
     
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func presentMissingNameAlert(){
+        let alertController = UIAlertController(title: "Name missing", message: "You need to update your profile with a name to be able to make an order", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Update profile", style: .default, handler: { (action) in
+            let viewControllerProfile = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ViewControllerProfile") as ViewControllerProfile
+            
+            self.present(viewControllerProfile, animated: true, completion: nil)
+            
+            
+        }))
+        
         self.present(alertController, animated: true, completion:{
             alertController.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
         })
-    }
+     }
         
     // function that dismisses the view if user taps outside of the alert box
     @objc func dismissOnTapOutside(){
@@ -102,8 +122,7 @@ class ViewControllerMenuForShop: UIViewController{
                 let presentationController = destination.popoverPresentationController
                 presentationController?.delegate = self
                 
-                guard let order = order else { return }
-                destination.order = order
+                destination.parentMenuVC = self
             }
         }
     }
@@ -128,7 +147,6 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedProduct = ProductRepo.productList[indexPath.row]
         performSegue(withIdentifier: "showProduct", sender: nil)
-        print(selectedProduct?.name)
     }
     
 

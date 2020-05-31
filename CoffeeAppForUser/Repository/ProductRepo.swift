@@ -13,7 +13,7 @@ import MapKit
 class ProductRepo{
     
     private static let db = Firestore.firestore()
-    private static let collectionName = "coffeeshopsIOS"
+    private static let collectionName = "coffeeshops"
     
     static var productList = [Product]()
     
@@ -26,13 +26,13 @@ class ProductRepo{
                 for doc in snap.documents{
                     let map = doc.data()
                     
-                    let name = map["name"] as! String
-                    let price = map["price"] as! Double
+                    let name = map["name"] as? String ?? ""
+                    let price = map["price"] as? Double ?? 00
+                    let quantity = map["quantity"] as? String ?? ""
+                    let size = map["size"] as? String ?? ""
                     
-                    print("NAME: \(name)")
-                    print("PRICE: \(price)")
-                    
-                    let product = Product(id: doc.documentID, name: name, price: price)
+                                    
+                    let product = Product(id: doc.documentID, name: name, price: price, quantity: quantity, size: size)
                     
                     productList.append(product)
                 }

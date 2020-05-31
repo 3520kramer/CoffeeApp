@@ -13,9 +13,10 @@ import MapKit
 class CoffeeShopRepo{
     
     private static let db = Firestore.firestore()
-    private static let collectionName = "coffeeshopsIOS"
+    private static let collectionName = "coffeeshops"
     
     static var coffeeShopList = [CoffeeShop]()
+    static var coffeeShopListSortedByLocation = [CoffeeShop]()
     
     static func startListener(vc:ViewControllerWithMap){
         db.collection(collectionName).addSnapshotListener { (snap, error) in
@@ -28,9 +29,9 @@ class CoffeeShopRepo{
                     
                     let id = doc.documentID
                     let timeEstimateMin = map["time_estimate_min"] as? Int ?? 99
-                    let timeEstimateMax = map["time_estimate_max"] as! Int ?? 99
+                    let timeEstimateMax = map["time_estimate_max"] as? Int ?? 99
                     let rating = map["rating"] as? Int ?? 99
-                    let geoPoint = map["coordinates"] as! GeoPoint
+                    let geoPoint = map["coordinates"] as? GeoPoint ?? GeoPoint(latitude: 0.00, longitude: 0.00)
                     
                     
                     

@@ -11,8 +11,10 @@ import FirebaseAuth
 
 class ViewControllerProductInfo: UIViewController{
     
-    @IBOutlet weak var productName: UILabel!
-    @IBOutlet weak var productPrice: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var quantityLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     
     var product: Product!
     var parentVC: ViewControllerMenuForShop!
@@ -21,9 +23,25 @@ class ViewControllerProductInfo: UIViewController{
         super.viewDidLoad()
         
         // sets the labels to the product info
-        productName.text = product.name
-        productPrice.text = String(product.price)
+        nameLabel.text = product.name
+        sizeLabel.text = product.size
+        quantityLabel.text = product.quantity
+        priceLabel.text = "\(formatPrice(price: product.price)) dkk" 
         
+    }
+    
+    func formatPrice(price: Double) -> String{
+        let formatter: String
+               
+       // if-statement to check if the number contains relevant digits or not
+       if (price - floor(price) > 0.01) {
+           formatter = "%.1f" // allow one digit
+       }else{
+           formatter = "%.0f" // will not allow any digits
+       }
+       
+       // sets the pricelabel in the correct format
+       return String(format: formatter, price)
     }
     
     @IBAction func checkOutPressed(_ sender: Any) {
@@ -42,8 +60,7 @@ class ViewControllerProductInfo: UIViewController{
             let presentationController = destination.popoverPresentationController
             presentationController?.delegate = self
             
-            guard let order = parentVC.order else { return }
-            destination.order = order
+            destination.parentProductVC = self
         }
     }
     

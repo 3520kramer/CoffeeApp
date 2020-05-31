@@ -16,11 +16,7 @@ class CoffeeShop{
     var timeEstimateMax: Int
     var rating: Int
     var marker: MKPointAnnotation
-    
-    
-    /* FOR CUSTOM ANNOTATION
-    var marker: CoffeeShopAnnotation
-    */
+    var distanceToUser: Double
     
     init(id: String, timeEstimateMin: Int, timeEstimateMax: Int, rating: Int, marker: MKPointAnnotation) {
         self.id = id
@@ -28,13 +24,8 @@ class CoffeeShop{
         self.timeEstimateMax = timeEstimateMax
         self.rating = rating
         self.marker = marker
+        self.distanceToUser = 0
     }
     
-    /* FOR CUSTOM ANNOTATION
-    init(id: String, name: String, marker: CoffeeShopAnnotation) {
-        self.id = id
-        self.name = name
-        self.marker = marker
-    }
-    */
+    
 }

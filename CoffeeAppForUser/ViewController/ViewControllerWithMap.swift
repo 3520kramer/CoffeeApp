@@ -204,6 +204,7 @@ extension ViewControllerWithMap: MKMapViewDelegate{
         // performs the segue to a new view controller with the menu for the coffeeshop
         performSegue(withIdentifier: "showDetail", sender: nil)
     }
+    
 }
 
 // MARK: - Location manager setup
@@ -217,14 +218,38 @@ extension ViewControllerWithMap: CLLocationManagerDelegate {
         let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
         map.setRegion(region, animated: true)
         
+        calculateDistanceFromUserToCoffeeShop()
+            
+        CoffeeShopRepo.coffeeShopList.sort(by: {$0.distanceToUser < $1.distanceToUser})
+        
         // reloads the tabledata as the user has moved and we need to calculate a new distance to the coffeeshops
         tableWithNearbyShops.reloadData()
+    }
+    
+    func calculateDistanceFromUserToCoffeeShop() {
+        // guard statement to check if the user location is not unknown
+        guard let userLocation = locationManager.location else { return }
+        
+        for coffeeShop in CoffeeShopRepo.coffeeShopList{
+            // create a CLLocation from the coffeshops coordinates
+            let coffeeShopLocation = CLLocation(latitude: coffeeShop.marker.coordinate.latitude, longitude: coffeeShop.marker.coordinate.longitude)
+            
+            // use the userlocation and the CLLoc
+            let distance = userLocation.distance(from: coffeeShopLocation)
+            
+            // set the distance to the coffeshop object to be able to sort the list
+            coffeeShop.distanceToUser = distance
+            print("hey11")
+        }
+        
     }
     
     // if the authorization changes, then we need to call our checkAuthorization function from above
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
+    
+    
     
     
 }

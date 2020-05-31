@@ -19,3 +19,10 @@ if (number - floor(number) > 0.01) {
 }else{
     print("no decimal")
 }
+
+var word: NSMutableString = "123456"
+
+word.insert(":", at: 4)
+word.insert(":", at: 2)
+
+print(word)

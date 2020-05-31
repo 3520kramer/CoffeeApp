@@ -14,6 +14,11 @@ class ViewControllerShoppingCart: UIViewController {
     @IBOutlet weak var orderTotalLabel: UILabel!
     @IBOutlet weak var orderCommentTextView: UITextView!
     
+    var authManager: AuthorizationManager!
+    
+    var parentMenuVC: ViewControllerMenuForShop?
+    var parentProductVC: ViewControllerProductInfo?
+    
     var order: Order!
     
     var placeHolderText = "Add a comment to your order..."
@@ -26,7 +31,20 @@ class ViewControllerShoppingCart: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        orderTotalLabel.text = String(order.total)
+        // initiates the Authorizationmanager to check if the user has a name
+        authManager = AuthorizationManager(parentVC: self)
+        
+        // sets the order object
+        // the parentMenuVC contains the order object
+        if let parentMenuVC = parentMenuVC{
+            order = parentMenuVC.order
+        // to get to the order object from the productVC we need to access the parentVC from there
+        }else if let parentProductVC = parentProductVC{
+            order = parentProductVC.parentVC.order
+        }
+        
+        // sets the order total label to the total of the order
+        orderTotalLabel.text = "\(formatPrice(price: order.total)) dkk"
         
         // creates a placholder text in the textView
         orderCommentTextView.delegate = self
@@ -34,13 +52,53 @@ class ViewControllerShoppingCart: UIViewController {
         orderCommentTextView.textColor = UIColor.lightGray
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+    }
+    
+    func formatPrice(price: Double) -> String{
+        let formatter: String
+               
+       // if-statement to check if the number contains relevant digits or not
+       if (price - floor(price) > 0.01) {
+           formatter = "%.1f" // allow one digit
+       }else{
+           formatter = "%.0f" // will not allow any digits
+       }
+       
+       // sets the pricelabel in the correct format
+       return String(format: formatter, price)
+    }
+    
     @IBAction func placeOrderPressed(_ sender: Any) {
-        OrderRepo.addOrder(order: order)
-        showOrderConfirmation()
+        if authManager.auth.currentUser?.displayName == nil{
+            showMissingNameAlert()
+        }else{
+            order.comments = orderCommentTextView.text
+            OrderRepo.addOrder(order: order)
+            
+            
+            // the parentMenuVC contains the order object
+            if let parentMenuVC = parentMenuVC{
+                parentMenuVC.order = Order(userID: order.userID, customerName: order.customerName, coffeeShopID: order.coffeeShopID)
+                order = parentMenuVC.order
+            // to get to the order object from the productVC we need to access the parentVC from there
+            }else if let parentProductVC = parentProductVC{
+                parentProductVC.parentVC.order = Order(userID: order.userID, customerName: order.customerName, coffeeShopID: order.coffeeShopID)
+                order = parentProductVC.parentVC.order
+            }
+            
+            tableView.reloadData()
+            
+            showOrderConfirmation()
+            
+            
+        }
     }
     
     func showOrderConfirmation(){
-        let alertController = UIAlertController(title: "Succes", message: "Your purchase is confirmed", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Succes", message: "Your purchase has been confirmed", preferredStyle: .alert)
 
         self.present(alertController, animated: true, completion:{
             alertController.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
@@ -54,8 +112,15 @@ class ViewControllerShoppingCart: UIViewController {
         
         // dimisses the alert controller
         self.dismiss(animated: true, completion: nil)
-        
    }
+    
+    func showMissingNameAlert(){
+        let alertController = UIAlertController(title: "Name missing", message: "You need to update your profile with a name to be able to make an order", preferredStyle: .alert)
+
+        self.present(alertController, animated: true, completion:{
+            alertController.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: nil))
+        })
+    }
 }
 
 extension ViewControllerShoppingCart: UITableViewDelegate, UITableViewDataSource {
@@ -67,7 +132,7 @@ extension ViewControllerShoppingCart: UITableViewDelegate, UITableViewDataSource
         let product = order.products[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProductTableCell
-        //cell.textLabel?.text = product.name
+        
         cell.setCell(product: product)
         return cell
     }
