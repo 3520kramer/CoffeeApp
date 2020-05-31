@@ -29,12 +29,11 @@ class ViewControllerOrders: UIViewController {
         }else{
             presentMissingSigningInAlert()
         }
-        
     }
     
     // creates an alert controller and adds two actions; sign in or continue browsing
     func presentMissingSigningInAlert(){
-        let alertController = UIAlertController(title: "To be able to make see your orders you need to be signed in", message: "Please sign in", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "To be able to see your orders you need to be signed in", message: "", preferredStyle: .alert)
             
         alertController.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
             // loads the view and assign it as a SignInView

@@ -34,17 +34,24 @@ class ViewControllerProfile: UIViewController {
             let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
             let signInView = views?[0] as! SignInView
             
-            signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: false)
-        }
+            signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: true)
         
+            checkName()
+        }else{
+            checkName()
+        }
+    
+        
+        print("current user: \(authManager.auth.currentUser?.displayName)")
+    }
+    
+    func checkName(){
         if let name = authManager.auth.currentUser?.displayName{
             infoLabel.text = "Name"
             nameTextField.text = name
         }else{
             infoLabel.text = "You need to enter your name to be able to place an order"
         }
-        
-        print("current user: \(authManager.auth.currentUser?.displayName)")
     }
     
     // Everything in this function will get called when the view disappears

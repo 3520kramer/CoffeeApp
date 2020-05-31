@@ -17,9 +17,7 @@ class OrderRepo{
     private static let subCollectionName = "products"
     
     static var orders = [Order]()
-    
-    //.whereField("", isEqualTo: username)
-    
+        
     static func startListener(vc:ViewControllerOrders, user_id: String){
         db.collection(collectionName).whereField("user_id", isEqualTo: user_id).addSnapshotListener { (snap, error) in
             if let snap = snap {
