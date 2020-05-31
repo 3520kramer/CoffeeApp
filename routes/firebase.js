@@ -27,6 +27,7 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 
+
 router.post("/deletedProduct", function (req, res) {
   console.log(req.body.productId);
   console.log(req.body.shopId);
@@ -55,17 +56,6 @@ router.post("/canceledOrder", function (req, res) {
 
 
 
-router.post("/newProduct", function (req, res) {
-
-  var newProduct = {
-    name: req.body.name,
-    price: req.body.price,
-    size: req.body.size,
-    quantity: req.body.quantity
-  }
-
-  let setDoc = db.collection('coffeeshops').doc('FVFkkD7s8xNdDgh3zAyd').collection("products").add(newProduct);
-});
 
 // route for database 
 router.get("/orderslist", (req, res) => {
@@ -86,7 +76,7 @@ router.get("/orderslist", (req, res) => {
         archived_status: orderDoc.data().archived_status,
         customer_name: orderDoc.data().customer_name,
         coffeeshop_id: orderDoc.data().coffeeshop_id,
-        customer_email: orderDoc.data().customer_email,
+        user_id: orderDoc.data().user_id,
         date: orderDoc.data().date,
         comments: orderDoc.data().comments,
         time: orderDoc.data().time,
@@ -128,18 +118,34 @@ router.get("/orderslist", (req, res) => {
 });
 
 
+let currentCoffeeshopFirebaseId = "Express Coffee";
+
+
+router.post("/newProduct", (req, res) => {
+
+  let newProduct = {
+    name: req.body.name,
+    price: req.body.price,
+    size: req.body.size,
+    quantity: req.body.quantity
+  }
+
+  db.collection('coffeeshops').doc(currentCoffeeshopFirebaseId).collection("products").add(newProduct);
+});
+
+
 // route for database products 
 router.get("/products", (req, res) => {
   let products = []
 
   // Getting the snapshot of the order collection
-  db.collection('coffeeshops/').doc("FVFkkD7s8xNdDgh3zAyd").get().then(coffeshopSnapshot => {
+  db.collection('coffeeshops/').doc(currentCoffeeshopFirebaseId).get().then(coffeshopSnapshot => {
     if (!coffeshopSnapshot.exists) {
       console.log('No such document!');
     }
     else {
       // creating an order object and assigning the ID and the rest of the information from the database
-      var coffeeshop = {
+      let coffeeshop = {
         id: coffeshopSnapshot.id,
         coordinates: coffeshopSnapshot.data().coordinates,
         marker_description: coffeshopSnapshot.data().marker_description,
@@ -153,7 +159,7 @@ router.get("/products", (req, res) => {
         // iterating over the product snapshot
         productSnapshot.forEach(productDoc => {
           // creating a product object
-          var product = {
+          let product = {
             id: productDoc.id,
             name: productDoc.data().name,
             price: productDoc.data().price,
