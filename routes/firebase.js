@@ -54,7 +54,8 @@ router.post("/canceledOrder", function (req, res) {
   return res.status(202).send(true);
 });
 
-
+// sets the current coffeshop
+let currentCoffeeshopFirebaseId = "Express Coffee";
 
 
 // route for database 
@@ -64,7 +65,7 @@ router.get("/orderslist", (req, res) => {
   let number_of_orders
 
   // Getting the snapshot of the order collection
-  db.collection('orders').where("archived_status", "==", false).get().then(productSnapshot => {
+  db.collection('orders').where("archived_status", "==", false).where("coffeeshop_id", "==", currentCoffeeshopFirebaseId).get().then(productSnapshot => {
     number_of_orders = productSnapshot.size
 
     // iterating over the order snapshot
@@ -116,9 +117,6 @@ router.get("/orderslist", (req, res) => {
   });
 
 });
-
-
-let currentCoffeeshopFirebaseId = "Express Coffee";
 
 
 router.post("/newProduct", (req, res) => {

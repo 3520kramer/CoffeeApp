@@ -25,9 +25,11 @@ $(document).ready(() => {
         });
     }
 
+
     // event listener
     $(document).on("click", ".deleteProduct", deletedProduct);
 
+    
     // Jquery getting our json product data from API
     $.get("http://localhost:8888/products", (data) => {
 
@@ -42,7 +44,7 @@ $(document).ready(() => {
             
 
             $clone.find('.name').html(item.name);
-            $clone.find('.price').html(item.price);
+            $clone.find('.price').html(item.price + " kr.");
             $clone.find('.size').html(item.size);
             $clone.find('.quantity').html(item.quantity);
 
