@@ -82,18 +82,23 @@ $(document).ready(() => {
 
             let $clone = $('#frontpage_new_ordertable tfoot tr').clone();
 
+            //this is data we don't display but use to be able to check diffrent things 
             $clone.data("id", item.id);
             $clone.data("coffeshop_id", item.coffeeshop_id);
             $clone.data("customer_email", item.customer_email);
             $clone.data("order_status", item.order_status);
 
+            // this checks if the order has been accepted
             if (item.order_status === true) {
                 $clone.find('.order_status').html("<h4>Accepted</h4>");
             }
 
+            // this is data we display
             $clone.find('.customer_name').text(item.customer_name);
             $clone.find('.date').text(item.date);
+            $clone.find('.comments').text(item.comments);
 
+            // this is our time typecast because our time format is ex. number 103040. after cast its "10:30:40" = "hour:minute:second"
             let timeToString = item.time.toString();
             let timeToStringHour = timeToString.slice(0, 2);
             let timeToStringMinute = timeToString.slice(2, 4);
@@ -101,16 +106,12 @@ $(document).ready(() => {
             let timeToStringFullTime = timeToStringHour + ":" + timeToStringMinute + ":" + timeToStringSecond;
             $clone.find('.time').html(timeToStringFullTime + '<br><br>' + item.date);
 
-            $clone.find('.comments').text(item.comments);
-            //$clone.find('.total').text(item.total + ' Kr.');
-
             // buttons to collect, accept and cancel an order
             $clone.find('.buttons').html(
                 `<button class="collectOrder" type="button">Collect</button><br>` +
                 `<button class="acceptOrder" type="button">Accept</button><br>` +
                 `<button class="cancelOrder" type="button">Cancel</button><br>`
             );
-
 
             // Loops through orders product name
             let productsName = item.products.map(prod => `${prod.name}`);
