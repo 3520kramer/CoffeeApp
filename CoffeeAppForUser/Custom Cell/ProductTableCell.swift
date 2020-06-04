@@ -13,14 +13,15 @@ class ProductTableCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    // cell initializer
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    // behaviour for the cell if it is selected
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     

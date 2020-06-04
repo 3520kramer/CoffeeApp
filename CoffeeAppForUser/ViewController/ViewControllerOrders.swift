@@ -13,22 +13,32 @@ class ViewControllerOrders: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    // declares the authorization manager
     var authManager: AuthorizationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // tableview setup
         tableView.delegate = self
         tableView.dataSource = self
         
+        // authorization setup
         authManager = AuthorizationManager(parentVC: self)
         
-        print(authManager.auth.currentUser?.uid)
+        // checks if the user is logged in
         if let user_id = authManager.auth.currentUser?.uid{
+            // starts listening for data from the user who is signed in
             OrderRepo.startListener(vc: self, user_id: user_id)
         }else{
             presentMissingSigningInAlert()
         }
+    }
+    
+    // closes the listener when the view is removed
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        authManager.closeListener()
     }
     
     // creates an alert controller and adds two actions; sign in or continue browsing
@@ -40,7 +50,7 @@ class ViewControllerOrders: UIViewController {
             let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
             let signInView = views?[0] as! SignInView
             
-            signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: false)
+            signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: true)
             
         }))
     
@@ -48,20 +58,43 @@ class ViewControllerOrders: UIViewController {
     }
 }
 
+// table view setup
 extension ViewControllerOrders: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return OrderRepo.orders.count
+        
+        // checks if the user has any orders
+        // if not we return 1
+        if OrderRepo.orders.count == 0{
+            return 1
+        // or else we return the count of the order list
+        }else{
+            return OrderRepo.orders.count
+        }
+        
     }
     
+    // sets the cells at each row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // if no orders we create a cell with the text "no orders yet"
+        if OrderRepo.orders.count == 0{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "emptyCell", for: indexPath)
+            cell.textLabel!.text = "No orders yet"
+            
+            return cell
+        }
+        
+        // if the user has orders then we set the order
         let order = OrderRepo.orders[indexPath.row]
 
+        // The cell is dependant of if the order has a comment or not
         if order.hasComment(){
             let cell = tableView.dequeueReusableCell(withIdentifier: "withComment", for: indexPath) as! OrderCellWithComment
             
             cell.setCell(order: order)
             
             return cell
+        
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "withoutComment", for: indexPath) as! OrderCellWithoutComment
             
@@ -72,7 +105,13 @@ extension ViewControllerOrders: UITableViewDelegate, UITableViewDataSource{
         
     }
     
+    // sets the height of the cell depending on the users number of orders, and if the order has a comment or not
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if OrderRepo.orders.count == 0{
+            return 30
+        }
+        
         let order = OrderRepo.orders[indexPath.row]
         
         if order.hasComment(){

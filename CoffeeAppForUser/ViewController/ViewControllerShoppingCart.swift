@@ -14,15 +14,18 @@ class ViewControllerShoppingCart: UIViewController {
     @IBOutlet weak var orderTotalLabel: UILabel!
     @IBOutlet weak var orderCommentTextView: UITextView!
     
+    // declares the authorization manager
     var authManager: AuthorizationManager!
     
+    // the two view controllers which the segue to here can be done from
     var parentMenuVC: ViewControllerMenuForShop?
     var parentProductVC: ViewControllerProductInfo?
     
+    // declares an order object
     var order: Order!
     
+    // holds the placeholder text for the comment textView
     var placeHolderText = "Add a comment to your order..."
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +55,6 @@ class ViewControllerShoppingCart: UIViewController {
         orderCommentTextView.textColor = UIColor.lightGray
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
-    }
-    
     func formatPrice(price: Double) -> String{
         let formatter: String
                
@@ -71,14 +69,22 @@ class ViewControllerShoppingCart: UIViewController {
        return String(format: formatter, price)
     }
     
+    // when pressing the place order button we need to check if the user has a name
     @IBAction func placeOrderPressed(_ sender: Any) {
         if authManager.auth.currentUser?.displayName == nil{
             showMissingNameAlert()
-        }else{
-            order.comments = orderCommentTextView.text
+        }else{ // else we continue
+            
+            // checks if the order comment textView is filled with the placeholder text, we won't add it to the order
+            if orderCommentTextView.text != placeHolderText{
+                order.comments = orderCommentTextView.text
+            }
+            
+            // adds the order to firebase from the repo
             OrderRepo.addOrder(order: order)
             
             
+            // initiates a new order object
             // the parentMenuVC contains the order object
             if let parentMenuVC = parentMenuVC{
                 parentMenuVC.order = Order(userID: order.userID, customerName: order.customerName, coffeeShopID: order.coffeeShopID)
@@ -89,14 +95,16 @@ class ViewControllerShoppingCart: UIViewController {
                 order = parentProductVC.parentVC.order
             }
             
+            // reloads the table data
             tableView.reloadData()
             
+            // shows order confirmation
             showOrderConfirmation()
-            
-            
+
         }
     }
     
+    // shows an alert controller with an order confirmation
     func showOrderConfirmation(){
         let alertController = UIAlertController(title: "Succes", message: "Your purchase has been confirmed", preferredStyle: .alert)
 
@@ -114,6 +122,7 @@ class ViewControllerShoppingCart: UIViewController {
         self.dismiss(animated: true, completion: nil)
    }
     
+    // shows an alert controller which displays a missing name
     func showMissingNameAlert(){
         let alertController = UIAlertController(title: "Name missing", message: "You need to update your profile with a name to be able to make an order", preferredStyle: .alert)
 
@@ -123,6 +132,7 @@ class ViewControllerShoppingCart: UIViewController {
     }
 }
 
+// table view setup
 extension ViewControllerShoppingCart: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         order.products.count
@@ -138,6 +148,7 @@ extension ViewControllerShoppingCart: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+// textview setup
 extension ViewControllerShoppingCart: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {

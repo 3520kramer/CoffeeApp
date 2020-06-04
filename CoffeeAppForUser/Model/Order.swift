@@ -74,6 +74,7 @@ class Order{
         
     }
     
+    // checks if the order has a comment
     func hasComment() -> Bool{
         if comments.isEmpty{
             return false

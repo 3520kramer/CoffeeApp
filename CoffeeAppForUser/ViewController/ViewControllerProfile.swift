@@ -9,7 +9,8 @@
 import UIKit
 
 class ViewControllerProfile: UIViewController {
-
+    
+    // declares the authorization manager
     var authManager: AuthorizationManager!
     
     @IBOutlet weak var infoLabel: UILabel!
@@ -27,7 +28,7 @@ class ViewControllerProfile: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        
+        // presents the login view if the user is not signed in
         if authManager.auth.currentUser == nil{
             print("showing login")
             // loads the view and assign it as a SignInView
@@ -35,7 +36,7 @@ class ViewControllerProfile: UIViewController {
             let signInView = views?[0] as! SignInView
             
             signInView.showLogInOption(parentVC: self, signInView: signInView, hideCancelButton: true)
-        
+    
             checkName()
         }else{
             checkName()
@@ -45,6 +46,7 @@ class ViewControllerProfile: UIViewController {
         print("current user: \(authManager.auth.currentUser?.displayName)")
     }
     
+    // checks if the user has a name and display relevant information based on the condition
     func checkName(){
         if let name = authManager.auth.currentUser?.displayName{
             infoLabel.text = "Name"
@@ -57,6 +59,7 @@ class ViewControllerProfile: UIViewController {
     // Everything in this function will get called when the view disappears
     override func viewDidDisappear(_ animated: Bool) {
         hideLogInOption()
+        authManager.closeListener()
     }
     
     // function that hides the view
@@ -65,9 +68,12 @@ class ViewControllerProfile: UIViewController {
         view.viewWithTag(2)?.removeFromSuperview() // removes blur effect
     }
     
+    // FOR DEMO PURPOSES - sign out button
     @IBAction func signOutPressed(_ sender: Any) {
         authManager.signOut()
     }
+    
+    // function that updates the name
     @IBAction func updateProfilePressed(_ sender: Any) {
         let changeRequest = authManager.auth.currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = nameTextField.text
@@ -86,6 +92,7 @@ class ViewControllerProfile: UIViewController {
         
     }
     
+    // shows a name confirmation
     func showUpdateProfileConfirmation(user: String){
         let alertController = UIAlertController(title: "Succes", message: "Your profile has been updated, \(user)", preferredStyle: .alert)
 

@@ -7,15 +7,20 @@
 //
 
 import Foundation
-import FirebaseAuth
+import FirebaseAuth // imports firebase authentication module
 
 class AuthorizationManager{
     
+    // declares a handle so we are able to close the auth listener later
     var handle: AuthStateDidChangeListenerHandle
+    
+    // the auth object which holds the data
     var auth = Auth.auth()
     
+    // the view controller to which we need to update
     let parentVC: UIViewController
     
+    // when initializing the authrizationManager object, we add a listener which listens for updates to the auth object
     init(parentVC: UIViewController){
         self.parentVC = parentVC
         
@@ -29,24 +34,12 @@ class AuthorizationManager{
         }
     }
     
+    // responsible for closing the listener
     func closeListener(){
         self.auth.removeIDTokenDidChangeListener(handle)
     }
-    
-    func signUp(email: String, password: String){
-        auth.createUser(withEmail: email, password: password)  { (authResult, error) in
-            // perform segue
-            if error == nil {
-                print("signed up succesfully")
-                print(authResult?.user.email)
-                
-                //self.parentVC.performSegue(withIdentifier: "personalSegue", sender: nil)
-            }else{
-                print("Error: \(error.debugDescription)")
-            }
-        }
-    }
-    
+
+    // handles the signing in of a user
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] (authResult, error) in
             guard let self = self else { return }
@@ -67,6 +60,7 @@ class AuthorizationManager{
         }
     }
     
+    // FOR DEMO PURPOSES - a sign out function
     func signOut(){
         do {
             try auth.signOut()

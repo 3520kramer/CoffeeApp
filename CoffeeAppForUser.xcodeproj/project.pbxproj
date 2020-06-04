@@ -17,8 +17,6 @@
 		4C05F7BB243F241B00EAD78C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C05F7BA243F241B00EAD78C /* Assets.xcassets */; };
 		4C05F7BE243F241B00EAD78C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C05F7BC243F241B00EAD78C /* LaunchScreen.storyboard */; };
 		4C05F7C6243F244D00EAD78C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C05F7C5243F244D00EAD78C /* GoogleService-Info.plist */; };
-		4C05F7CA243F28C700EAD78C /* UserRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05F7C9243F28C700EAD78C /* UserRepo.swift */; };
-		4C05F7CC243F2E1F00EAD78C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05F7CB243F2E1F00EAD78C /* User.swift */; };
 		4C0D149A247F9FDB00CA924C /* OrderCellOrderCellWithoutComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D1499247F9FDB00CA924C /* OrderCellOrderCellWithoutComment.swift */; };
 		4C107CFD247FF04A00AFAA55 /* OrderCellWithComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C107CFC247FF04A00AFAA55 /* OrderCellWithComment.swift */; };
 		4C2330212451898800B279D8 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2330202451898800B279D8 /* AuthorizationManager.swift */; };
@@ -51,8 +49,6 @@
 		4C05F7BD243F241B00EAD78C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C05F7BF243F241B00EAD78C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C05F7C5243F244D00EAD78C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4C05F7C9243F28C700EAD78C /* UserRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserRepo.swift; path = CoffeeAppForUser/Repository/UserRepo.swift; sourceTree = SOURCE_ROOT; };
-		4C05F7CB243F2E1F00EAD78C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C0D1499247F9FDB00CA924C /* OrderCellOrderCellWithoutComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCellOrderCellWithoutComment.swift; sourceTree = "<group>"; };
 		4C107CFC247FF04A00AFAA55 /* OrderCellWithComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCellWithComment.swift; sourceTree = "<group>"; };
 		4C2330202451898800B279D8 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
@@ -64,7 +60,6 @@
 		4C38A23D2445EF9B004E50CB /* ProductRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRepo.swift; sourceTree = "<group>"; };
 		4C7E30332445BA5E004E56CB /* ViewControllerWithMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerWithMap.swift; sourceTree = "<group>"; };
 		4C9E214924640BBA00404F6B /* CoffeeShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopCell.swift; sourceTree = "<group>"; };
-		4CB2CD9C246AA4DF009843E8 /* Playgorund.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playgorund.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4CB2CD9D246ACE87009843E8 /* ProductTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableCell.swift; sourceTree = "<group>"; };
 		4CB2CD9F246AEC4C009843E8 /* SignInView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInView.xib; sourceTree = "<group>"; };
 		4CB2CDA1246AECD0009843E8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -106,7 +101,6 @@
 		4C05F7B0243F241A00EAD78C /* CoffeeAppForUser */ = {
 			isa = PBXGroup;
 			children = (
-				4CB2CD9B246AA4D6009843E8 /* Playgrounds */,
 				4C9E21462464082F00404F6B /* Custom Cell */,
 				4C23301F2451896600B279D8 /* Authentication */,
 				4CBFC6E2246BE19E004FD7F3 /* View */,
@@ -127,7 +121,6 @@
 		4C05F7C7243F255B00EAD78C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C05F7CB243F2E1F00EAD78C /* User.swift */,
 				4C38A2352445BEB1004E50CB /* CoffeeShop.swift */,
 				4C38A23B2445EF35004E50CB /* Product.swift */,
 				0512391F24464275008B8F99 /* Order.swift */,
@@ -138,7 +131,6 @@
 		4C05F7C8243F256300EAD78C /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				4C05F7C9243F28C700EAD78C /* UserRepo.swift */,
 				4C38A2372445BF85004E50CB /* CoffeeShopRepo.swift */,
 				4C38A23D2445EF9B004E50CB /* ProductRepo.swift */,
 				05EBBAD124586296004D0772 /* OrderRepo.swift */,
@@ -176,14 +168,6 @@
 				4C107CFC247FF04A00AFAA55 /* OrderCellWithComment.swift */,
 			);
 			path = "Custom Cell";
-			sourceTree = "<group>";
-		};
-		4CB2CD9B246AA4D6009843E8 /* Playgrounds */ = {
-			isa = PBXGroup;
-			children = (
-				4CB2CD9C246AA4DF009843E8 /* Playgorund.playground */,
-			);
-			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 		4CBFC6E2246BE19E004FD7F3 /* View */ = {
@@ -332,7 +316,6 @@
 				05F3C1F7246409AE0070CB65 /* ViewControllerOrders.swift in Sources */,
 				05EBBAD224586296004D0772 /* OrderRepo.swift in Sources */,
 				4C38A23E2445EF9B004E50CB /* ProductRepo.swift in Sources */,
-				4C05F7CA243F28C700EAD78C /* UserRepo.swift in Sources */,
 				4C7E30342445BA5E004E56CB /* ViewControllerWithMap.swift in Sources */,
 				4CB2CDA2246AECD0009843E8 /* SignInView.swift in Sources */,
 				4C107CFD247FF04A00AFAA55 /* OrderCellWithComment.swift in Sources */,
@@ -345,7 +328,6 @@
 				0512392024464275008B8F99 /* Order.swift in Sources */,
 				4C05F7B2243F241A00EAD78C /* AppDelegate.swift in Sources */,
 				05EBBACE245849AD004D0772 /* ViewControllerProductInfo.swift in Sources */,
-				4C05F7CC243F2E1F00EAD78C /* User.swift in Sources */,
 				4CD1BDCA247BD5370009D784 /* ViewControllerShoppingCart.swift in Sources */,
 				4C38A23C2445EF35004E50CB /* Product.swift in Sources */,
 				4C05F7B4243F241A00EAD78C /* SceneDelegate.swift in Sources */,

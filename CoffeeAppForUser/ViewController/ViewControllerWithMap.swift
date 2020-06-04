@@ -18,19 +18,24 @@ class ViewControllerWithMap: UIViewController {
     let locationManager = CLLocationManager() // core location manager used to query for gps data
     let regionInMeters: Double = 10000 // how much we wan't the map to be zoomed in
     
+    // declares the coffeeshop to use for segue
     var selectedCoffeeShop: CoffeeShop?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // sets the delegate of the map to this viewcontroller
         map.delegate = self
         
+        // sets the delegate and datasource of the tableView to this viewcontroller
         tableWithNearbyShops.delegate = self
         tableWithNearbyShops.dataSource = self
         
+        // starts checking for location service in the device
         checkLocationService()
-                
-        CoffeeShopRepo.startListener(vc: self)
+        
+        // starts the listener for fetching coffeshop data from the db
+        CoffeeShopRepo.startListener(parentVC: self)
     }
      // MARK: - User Location Setup With Authorization
     
@@ -40,8 +45,8 @@ class ViewControllerWithMap: UIViewController {
             setUpLocationManager()
             checkLocationAuthorization()
         }else{
-            // create an alert that tells the user to turn on location services
-            print("what")
+            // TODO: - create an alert that tells the user to turn on location services
+            print("Location Services has not been enabled on this device")
         }
     }
     
@@ -95,7 +100,7 @@ class ViewControllerWithMap: UIViewController {
         }
     }
     
-    
+    // function that we call when we have the right permission of user location
     func startUpdatingUserLocationWhenAuthorized(){
         map.showsUserLocation = true // shows the blue dot on the map
         centerViewOnUserLocation()
@@ -126,9 +131,6 @@ class ViewControllerWithMap: UIViewController {
         
         // creates a list of markers
         var markers = [MKPointAnnotation]()
-        /* FOR CUSTOM ANNOTATION
-        var markers = [CoffeeShopAnnotation]()
-        */
  
         // adds all the markers from the new list of coffeeshops
         for coffeeShop in CoffeeShopRepo.coffeeShopList{
@@ -192,6 +194,7 @@ extension ViewControllerWithMap: MKMapViewDelegate{
        
     }
     
+    // when you select an annotation we set that as the selected coffeeshop
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? MKPointAnnotation, let title = annotation.title{
             selectedCoffeeShop = CoffeeShopRepo.getCoffeeShop(with: title)
@@ -210,7 +213,7 @@ extension ViewControllerWithMap: MKMapViewDelegate{
 // MARK: - Location manager setup
 extension ViewControllerWithMap: CLLocationManagerDelegate {
     
-    // every time the user moves, this function is fired off
+    // every time the user moves, this function is fired
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
@@ -218,30 +221,27 @@ extension ViewControllerWithMap: CLLocationManagerDelegate {
         let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
         map.setRegion(region, animated: true)
         
-        calculateDistanceFromUserToCoffeeShop()
-            
-        CoffeeShopRepo.coffeeShopList.sort(by: {$0.distanceToUser < $1.distanceToUser})
-        
-        // reloads the tabledata as the user has moved and we need to calculate a new distance to the coffeeshops
-        tableWithNearbyShops.reloadData()
+        calculateDistanceFromUserToCoffeeShop(userLocation: location)
     }
     
-    func calculateDistanceFromUserToCoffeeShop() {
-        // guard statement to check if the user location is not unknown
-        guard let userLocation = locationManager.location else { return }
+    func calculateDistanceFromUserToCoffeeShop(userLocation: CLLocation) {
         
         for coffeeShop in CoffeeShopRepo.coffeeShopList{
             // create a CLLocation from the coffeshops coordinates
-            let coffeeShopLocation = CLLocation(latitude: coffeeShop.marker.coordinate.latitude, longitude: coffeeShop.marker.coordinate.longitude)
+            let coffeeShopLocation = CLLocation(latitude: coffeeShop.marker.coordinate.latitude,
+                                                longitude: coffeeShop.marker.coordinate.longitude)
             
             // use the userlocation and the CLLoc
             let distance = userLocation.distance(from: coffeeShopLocation)
             
             // set the distance to the coffeshop object to be able to sort the list
             coffeeShop.distanceToUser = distance
-            print("hey11")
         }
         
+        CoffeeShopRepo.coffeeShopList.sort(by: {$0.distanceToUser < $1.distanceToUser})
+        
+        // reloads the tabledata as the user has moved and we need to calculate a new distance to the coffeeshops
+        tableWithNearbyShops.reloadData()
     }
     
     // if the authorization changes, then we need to call our checkAuthorization function from above
@@ -257,24 +257,29 @@ extension ViewControllerWithMap: CLLocationManagerDelegate {
 // MARK: - TableView Setup
 extension ViewControllerWithMap: UITableViewDelegate, UITableViewDataSource{
     
+    // Sets the number of rows in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CoffeeShopRepo.coffeeShopList.count
     }
     
+    // configures the cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let coffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row]
         
+        // makes it possible to reuse cells to save memory
         let cell = tableWithNearbyShops.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CoffeeShopCell
-        cell.selectionStyle = .blue
         
+        // sets the cell
         cell.setCell(vc: self, coffeeshop: coffeeShop)
         return cell
     }
     
+    // sets the height of the cell
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
+    // when selecting a cell we set the selected coffeeshop to this cell and performs the segue with the selected coffeeshop
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCoffeeShop = CoffeeShopRepo.coffeeShopList[indexPath.row]
         

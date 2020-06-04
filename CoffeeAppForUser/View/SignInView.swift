@@ -15,17 +15,21 @@ class SignInView: UIView {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     
+    // declares two buttonhandlers which gets initiated in the showLogInOption
     var signInButtonHandler: ((String, String) -> Void)?
     var cancelButtonHandler: (() -> Void)?
     
+    // declares the authmanager
     var authManager: AuthorizationManager?
     
+    // Handles when the user presses the sign in button
     @IBAction func signInPressed(_ sender: Any) {
         if let email = emailTextField.text, let password = passwordTextField.text{
             signInButtonHandler?(email, password)
         }
     }
     
+    // Handles if the user presses the cancel button
     @IBAction func cancelPressed(_ sender: Any) {
         cancelButtonHandler?()
     }

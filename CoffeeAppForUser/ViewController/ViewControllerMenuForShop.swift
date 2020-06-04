@@ -12,11 +12,12 @@ class ViewControllerMenuForShop: UIViewController{
 
     @IBOutlet weak var tableView: UITableView!
     
+    // declares an object as optional, so we can check if it is initialized
     var order: Order?
-    
     var coffeeShop: CoffeeShop?
     var selectedProduct: Product?
     
+    // declares the authorization manager
     var authManager: AuthorizationManager!
         
     override func viewDidLoad() {
@@ -35,28 +36,39 @@ class ViewControllerMenuForShop: UIViewController{
         }
     }
     
+    // when the view did appear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         // sets the authorizationmanager
         authManager = AuthorizationManager(parentVC: self)
         
+        // checks if the user is signed in or else it returns from the function
         guard let userID = authManager.auth.currentUser?.uid else {
             presentMissingSigningInAlert()
             return
         }
         
+        // checks if the user has a name or else it returns from the function
         guard let name = authManager.auth.currentUser?.displayName else {
             presentMissingNameAlert()
             return
         }
         
+        // if the name and id is present then we can create an order
         if let coffeeShop = coffeeShop{
             order = Order(userID: userID, customerName: name, coffeeShopID: coffeeShop.id)
         }
         
     }
     
+    // when the view disappears we need to stop the listener
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        authManager.closeListener()
+    }
+    
+    // when pressing checkout
     @IBAction func checkoutPressed(_ sender: Any) {
         guard let order = order else {
             presentMissingSigningInAlert()
@@ -69,6 +81,7 @@ class ViewControllerMenuForShop: UIViewController{
     func presentMissingSigningInAlert(){
         let alertController = UIAlertController(title: "To be able to make an order you need to be signed in", message: "Please sign in", preferredStyle: .alert)
             
+        // adds an action the the alert controller
         alertController.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
             // loads the view and assign it as a SignInView
             let views = Bundle.main.loadNibNamed("SignInView", owner: nil, options: nil)
@@ -82,17 +95,21 @@ class ViewControllerMenuForShop: UIViewController{
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // presents the missing name alert
     func presentMissingNameAlert(){
         let alertController = UIAlertController(title: "Name missing", message: "You need to update your profile with a name to be able to make an order", preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Update profile", style: .default, handler: { (action) in
+            // creates the profile view controller
             let viewControllerProfile = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ViewControllerProfile") as ViewControllerProfile
             
+            // presents the view controller if the update profile button has been pressed
             self.present(viewControllerProfile, animated: true, completion: nil)
             
             
         }))
         
+        // presents the alertcontroller
         self.present(alertController, animated: true, completion:{
             alertController.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
         })
@@ -129,6 +146,7 @@ class ViewControllerMenuForShop: UIViewController{
     
 }
 
+// table view setup
 extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ProductRepo.productList.count
@@ -152,6 +170,7 @@ extension ViewControllerMenuForShop: UITableViewDelegate, UITableViewDataSource{
 
 }
 
+// pop over presentation controller setup
 extension ViewControllerMenuForShop: UIPopoverPresentationControllerDelegate{
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {

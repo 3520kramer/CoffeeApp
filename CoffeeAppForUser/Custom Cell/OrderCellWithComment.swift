@@ -23,16 +23,19 @@ class OrderCellWithComment: UITableViewCell {
     
     @IBOutlet weak var productLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    
+
+    // cell initializer
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    // behaviour for the cell if it is selected
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
+    // Configures the cell data
     func setCell(order: Order){
         nameLabel.text = order.coffeeShopID
         dateLabel.text = order.date
@@ -40,6 +43,7 @@ class OrderCellWithComment: UITableViewCell {
         commentsLabel.text = order.comments
         totalLabel.text = "\(formatNumber(number: order.total)) dkk total"
         
+        // gets the time from the order and makes it easier to read for the user
         if let time = order.time{
             let timeString = NSMutableString(string: String(time))
             timeString.insert(":", at: 4)
@@ -48,12 +52,14 @@ class OrderCellWithComment: UITableViewCell {
             timeLabel.text = String(timeString)
         }
         
+        // Sets the number of lines for the productlabel to the number of products in the order
         productLabel.numberOfLines = order.products.count
         productLabel.text = ""
         
         priceLabel.numberOfLines = order.products.count
         priceLabel.text = ""
         
+        // for each product we add it to the label on a new line
         for product in order.products{
             productLabel.text! += "\(product.name)\n"
             priceLabel.text! += "\(formatNumber(number: product.price)) dkk\n"
@@ -64,17 +70,23 @@ class OrderCellWithComment: UITableViewCell {
         priceLabel.sizeToFit()
     }
     
+    // function that determines the image and text of the order status depending on how far the order is in the process
     func determineOrderStatus(order: Order) -> String{
         
         if order.orderStatus == true && order.archived == false{
             
+            // creates an UIImage with an icon
             if let myImage = UIImage(systemName: "smiley"){
+                
+                // makes the image able to change color
                 let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
                 statusImageView.image = tintableImage
             }
             
+            // sets the color of the image
             statusImageView.tintColor = .systemGreen
         
+            // returns the text
             return "Order accepted"
             
         }else if order.orderStatus == true && order.archived == true{
@@ -113,6 +125,7 @@ class OrderCellWithComment: UITableViewCell {
         }
     }
     
+    // formats the number
     func formatNumber(number: Double) -> String {
         let formatter: String
         
